@@ -5,7 +5,7 @@ namespace Game.Scripts.Player
     public class PlayerMovement : MonoBehaviour
     {
         public float movementSpeed = 200f;
-        public float rotationDegreesToAllowDirectionSwitch = 15f;
+        [Range(0.01f, 45f)] public float rotationDegreesToAllowDirectionSwitch = 10f;
         public float slerpRotationNormalizationIdle = .25f;
 
         private Vector3 _movement;
@@ -30,12 +30,12 @@ namespace Game.Scripts.Player
                 // Don't move both directions at once, and don't start to rotate until the other directions stops
                 if (Mathf.Abs(_movement.x) > 0)
                 {
-                    BlockRotation();
+                    BlockRotation(null);
                     return;
                 }
 
                 // If the previous movement was horizontal, make sure the cube stands on a side
-                if (_horizontalMovement && BlockRotation())
+                if (_horizontalMovement && BlockRotation(null))
                 {
                     return;
                 }
@@ -54,7 +54,7 @@ namespace Game.Scripts.Player
             else if (Mathf.Abs(_movement.x) > 0)
             {
                 // If the previous movement was vertical, make sure the cube stands on a side
-                if (!_horizontalMovement && BlockRotation())
+                if (!_horizontalMovement && BlockRotation(null))
                 {
                     return;
                 }
@@ -72,43 +72,62 @@ namespace Game.Scripts.Player
             }
             else
             {
-                BlockRotation();
+                BlockRotation(null);
             }
+        }
+
+        /// <summary>
+        /// Finds out the difference in degrees before the cube is normalized
+        /// </summary>
+        /// <param name="horizontal">horizontal difference if true, vertical difference if false</param>
+        /// <returns>rotation difference in degrees</returns>
+        float RotationDifferenceBeforeNormalized(bool horizontal)
+        {
+            var difference = horizontal
+                ? transform.rotation.eulerAngles.x % 90
+                : transform.rotation.eulerAngles.z % 90;
+
+            while (difference > 45)
+            {
+                difference -= 90;
+            }
+
+            return Mathf.Abs(difference);
         }
 
         /// <summary>
         /// Normalizes the cube to stand on a side.
         /// </summary>
+        /// <param name="rotationDegreesBeforeNormalized">rotation degrees before the cube is normalized</param>
         /// <returns>true if there was a compensation rotation applied</returns>
-        bool BlockRotation()
+        bool BlockRotation(float? rotationDegreesBeforeNormalized)
         {
             _rigidbody.constraints |= RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.constraints |= RigidbodyConstraints.FreezeRotationX;
 
-            var slerpTarget = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.Euler(
-                    Mathf.Round(transform.rotation.eulerAngles.x / 90f) * 90,
-                    Mathf.Round(transform.rotation.eulerAngles.y / 90f) * 90,
-                    Mathf.Round(transform.rotation.eulerAngles.z / 90f) * 90
-                ),
-                slerpRotationNormalizationIdle
-            );
-            var differenceX = transform.rotation.eulerAngles.x % 90;
-            while (differenceX > 45)
+            if (!rotationDegreesBeforeNormalized.HasValue)
             {
-                differenceX -= 90;
+                rotationDegreesBeforeNormalized =
+                    Mathf.Max(RotationDifferenceBeforeNormalized(true), RotationDifferenceBeforeNormalized(false));
             }
 
-            var differenceY = transform.rotation.eulerAngles.z % 90;
-            while (differenceY > 45)
+            if (rotationDegreesBeforeNormalized > rotationDegreesToAllowDirectionSwitch)
             {
-                differenceY -= 90;
-            }
-
-            if (Mathf.Max(Mathf.Abs(differenceX), Mathf.Abs(differenceY)) > rotationDegreesToAllowDirectionSwitch)
-            {
+                // Interpolate towards a normalized cube standing up to a required degree of precision
+                var rotation = transform.rotation;
+                var slerpTarget = Quaternion.Slerp(
+                    rotation,
+                    Quaternion.Euler(
+                        Mathf.Round(rotation.eulerAngles.x / 90f) * 90,
+                        Mathf.Round(rotation.eulerAngles.y / 90f) * 90,
+                        Mathf.Round(rotation.eulerAngles.z / 90f) * 90
+                    ),
+                    slerpRotationNormalizationIdle
+                );
                 _rigidbody.MoveRotation(slerpTarget);
+
+                // Also prevent a redundant cube movement
+                _rigidbody.velocity = Vector3.zero;
                 return true;
             }
 
