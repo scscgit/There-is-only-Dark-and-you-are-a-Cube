@@ -170,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 3779615604940969357, guid: 75a0c39f49db1794180881f5cbcd7fc4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3779615604940969357, guid: 75a0c39f49db1794180881f5cbcd7fc4,
         type: 3}
@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 8235548411040667431, guid: 0baeff6ec6f881c4681e9c16ecd14c88,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8235548411040667431, guid: 0baeff6ec6f881c4681e9c16ecd14c88,
         type: 3}
@@ -371,7 +371,7 @@ PrefabInstance:
     - target: {fileID: 2707531057888565051, guid: 1c61049b727ebaa49a7b014927802b63,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2707531057888565051, guid: 1c61049b727ebaa49a7b014927802b63,
         type: 3}
@@ -400,7 +400,7 @@ PrefabInstance:
     - target: {fileID: 1787384004896080603, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
       propertyPath: m_Name
-      value: Battery (1)
+      value: Battery
       objectReference: {fileID: 0}
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
@@ -410,7 +410,7 @@ PrefabInstance:
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
@@ -474,17 +474,17 @@ PrefabInstance:
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.806
+      value: -15.503
       objectReference: {fileID: 0}
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.254
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.622
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 4455500506432503268, guid: d15e4aa29aab5d4438ca19ed716f0190,
         type: 3}
