@@ -25,7 +25,7 @@ public class LightScript : MonoBehaviour
         lightComp.intensity = lightIntensity;
 
         // Set the position (or any transform property)
-        lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        followPlayer();
     }
 
     // Update is called once per frame
@@ -34,6 +34,16 @@ public class LightScript : MonoBehaviour
         if (lightIntensity>0)
             lightIntensity -= lightDec;
         lightComp.intensity = lightIntensity;
+        followPlayer();
+    }
+
+    private void followPlayer()
+    {
         lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+    }
+
+    public void chargeLight(float newLightIntensity)
+    {
+        lightIntensity = newLightIntensity;
     }
 }
