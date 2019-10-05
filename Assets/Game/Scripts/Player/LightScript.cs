@@ -20,12 +20,12 @@ public class LightScript : MonoBehaviour
 
         // Set color and position
         lightComp.color = Color.white;
-        lightComp.intensity = lightIntensity/10;
+        lightComp.intensity = lightIntensity;
 
         // Set the position (or any transform property)
-        lightGameObject.transform.position = new Vector3(0, 5, 0);
+        lightGameObject.transform.position = new Vector3(0, 100, 0);
         lightIntensity = 100;
-        lightDec = 0.1f;
+        lightDec = 0.2f;
     }
 
     // Update is called once per frame
@@ -33,6 +33,7 @@ public class LightScript : MonoBehaviour
     {
         if (lightIntensity>0)
             lightIntensity -= lightDec;
-        lightComp.intensity = lightIntensity/10;
+        lightComp.intensity = lightIntensity;
+        //lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 20, this.transform.position.z);
     }
 }
