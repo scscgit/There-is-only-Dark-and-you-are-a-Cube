@@ -5,13 +5,14 @@ using UnityEngine;
 public class LightScript : MonoBehaviour
 {
     private float lightIntensity { get; set; }
-    public float lightDec;
+    public float lightDec = 0.005f;
     private Light lightComp;
     private GameObject lightGameObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        lightIntensity = 5;
 
         // Make a game object
         lightGameObject = new GameObject("The Light");
@@ -25,8 +26,6 @@ public class LightScript : MonoBehaviour
 
         // Set the position (or any transform property)
         lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-        lightIntensity = 5;
-        lightDec = 0.005f;
     }
 
     // Update is called once per frame
