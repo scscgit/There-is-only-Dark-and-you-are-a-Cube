@@ -21,7 +21,8 @@ public class LightScript : MonoBehaviour
         lightComp = lightGameObject.AddComponent<Light>();
 
         // Set color and position
-        lightComp.color = Color.white;
+        lightComp.type = LightType.Point;
+        lightComp.color = Color.yellow;
         lightComp.intensity = lightIntensity;
 
         // Set the position (or any transform property)
