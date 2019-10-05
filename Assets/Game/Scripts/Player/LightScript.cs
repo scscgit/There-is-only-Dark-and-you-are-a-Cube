@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour
 {
-    private float LightIntensity { get { return LightIntensity } }
+    private float lightIntensity { get; set; }
     public float lightDec;
 
     // Start is called before the first frame update
@@ -17,8 +17,7 @@ public class LightScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lightIntensity -= lightDec;
+        if (lightIntensity>0)
+            lightIntensity -= lightDec;
     }
-
-
 }
