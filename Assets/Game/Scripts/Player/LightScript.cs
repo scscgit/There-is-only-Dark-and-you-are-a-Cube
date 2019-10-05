@@ -7,13 +7,14 @@ public class LightScript : MonoBehaviour
     private float lightIntensity { get; set; }
     public float lightDec;
     private Light lightComp;
+    private GameObject lightGameObject;
 
     // Start is called before the first frame update
     void Start()
     {
 
         // Make a game object
-        GameObject lightGameObject = new GameObject("The Light");
+        lightGameObject = new GameObject("The Light");
 
         // Add the light component
         lightComp = lightGameObject.AddComponent<Light>();
@@ -23,9 +24,9 @@ public class LightScript : MonoBehaviour
         lightComp.intensity = lightIntensity;
 
         // Set the position (or any transform property)
-        lightGameObject.transform.position = new Vector3(0, 100, 0);
-        lightIntensity = 100;
-        lightDec = 0.2f;
+        lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        lightIntensity = 5;
+        lightDec = 0.005f;
     }
 
     // Update is called once per frame
@@ -34,6 +35,6 @@ public class LightScript : MonoBehaviour
         if (lightIntensity>0)
             lightIntensity -= lightDec;
         lightComp.intensity = lightIntensity;
-        //lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 20, this.transform.position.z);
+        lightGameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
     }
 }
