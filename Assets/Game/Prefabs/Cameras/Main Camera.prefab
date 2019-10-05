@@ -97,4 +97,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  offset: {x: 0, y: 10, z: 0}
