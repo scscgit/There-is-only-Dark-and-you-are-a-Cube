@@ -30,13 +30,14 @@ namespace Game.Scripts.Player
                 // Don't move both directions at once, and don't start to rotate until the other directions stops
                 if (Mathf.Abs(_movement.x) > 0)
                 {
-                    BlockRotation(null);
+                    BlockRotation();
                     return;
                 }
 
                 // If the previous movement was horizontal, make sure the cube stands on a side
-                if (_horizontalMovement && BlockRotation(null))
+                if (_horizontalMovement && !IsNormalized())
                 {
+                    BlockRotation();
                     return;
                 }
 
@@ -54,8 +55,9 @@ namespace Game.Scripts.Player
             else if (Mathf.Abs(_movement.x) > 0)
             {
                 // If the previous movement was vertical, make sure the cube stands on a side
-                if (!_horizontalMovement && BlockRotation(null))
+                if (!_horizontalMovement && !IsNormalized())
                 {
+                    BlockRotation();
                     return;
                 }
 
@@ -72,7 +74,7 @@ namespace Game.Scripts.Player
             }
             else
             {
-                BlockRotation(null);
+                BlockRotation();
             }
         }
 
@@ -95,43 +97,37 @@ namespace Game.Scripts.Player
             return Mathf.Abs(difference);
         }
 
+        bool IsNormalized()
+        {
+            return Mathf.Max(
+                       RotationDifferenceBeforeNormalized(true), RotationDifferenceBeforeNormalized(false)
+                   ) <= rotationDegreesToAllowDirectionSwitch;
+        }
+
         /// <summary>
         /// Normalizes the cube to stand on a side.
         /// </summary>
-        /// <param name="rotationDegreesBeforeNormalized">rotation degrees before the cube is normalized</param>
-        /// <returns>true if there was a compensation rotation applied</returns>
-        bool BlockRotation(float? rotationDegreesBeforeNormalized)
+        void BlockRotation()
         {
             _rigidbody.constraints |= RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.constraints |= RigidbodyConstraints.FreezeRotationX;
 
-            if (!rotationDegreesBeforeNormalized.HasValue)
-            {
-                rotationDegreesBeforeNormalized =
-                    Mathf.Max(RotationDifferenceBeforeNormalized(true), RotationDifferenceBeforeNormalized(false));
-            }
+            // Interpolate towards a normalized cube standing up to a required degree of precision
+            var rotation = transform.rotation;
+            var slerpTarget = Quaternion.Slerp(
+                rotation,
+                Quaternion.Euler(
+                    Mathf.Round(rotation.eulerAngles.x / 90f) * 90,
+                    Mathf.Round(rotation.eulerAngles.y / 90f) * 90,
+                    Mathf.Round(rotation.eulerAngles.z / 90f) * 90
+                ),
+                slerpRotationNormalizationIdle
+            );
+            _rigidbody.MoveRotation(slerpTarget);
 
-            if (rotationDegreesBeforeNormalized > rotationDegreesToAllowDirectionSwitch)
-            {
-                // Interpolate towards a normalized cube standing up to a required degree of precision
-                var rotation = transform.rotation;
-                var slerpTarget = Quaternion.Slerp(
-                    rotation,
-                    Quaternion.Euler(
-                        Mathf.Round(rotation.eulerAngles.x / 90f) * 90,
-                        Mathf.Round(rotation.eulerAngles.y / 90f) * 90,
-                        Mathf.Round(rotation.eulerAngles.z / 90f) * 90
-                    ),
-                    slerpRotationNormalizationIdle
-                );
-                _rigidbody.MoveRotation(slerpTarget);
-
-                // Also prevent a redundant cube movement
-                _rigidbody.velocity = Vector3.zero;
-                return true;
-            }
-
-            return false;
+            // Also prevent a redundant cube movement, but let it fall down - also make sure it's not jumping up
+            var velocity = _rigidbody.velocity;
+            _rigidbody.velocity = new Vector3(0, velocity.y < 0 ? velocity.y : 0, 0);
         }
     }
 }
