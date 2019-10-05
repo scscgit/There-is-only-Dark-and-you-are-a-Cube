@@ -48,6 +48,7 @@ sysinfo.txt
 /[Dd]ocs/*
 !/[Dd]ocs/[Dd]oxyfile*
 
+/Assets/Plugins.meta
 /Assets/Plugins/GitHub.meta
 /Assets/Plugins/GitHub/Editor.meta
 /Assets/Plugins/GitHub/Editor/*
