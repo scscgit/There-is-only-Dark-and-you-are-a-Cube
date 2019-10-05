@@ -20,7 +20,7 @@ public class PlayerCollisionChecker : MonoBehaviour
     {
         if (col.gameObject.name == "Battery")
         {
-            gameObject.GetComponent<LightScript>().chargeLight(5);
+            gameObject.GetComponent<LightScript>().ChargeLight(5);
             Destroy(col.gameObject);
         }
         if (col.gameObject.name == "DoorEntrance")
