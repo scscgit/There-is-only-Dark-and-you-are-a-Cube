@@ -23,5 +23,9 @@ public class PlayerCollisionChecker : MonoBehaviour
             gameObject.GetComponent<LightScript>().chargeLight(5);
             Destroy(col.gameObject);
         }
+        if (col.gameObject.name == "DoorEntrance")
+        {
+            Destroy(col.gameObject);
+        }
     }
 }
