@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &293075570 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3779615604940969357, guid: 75a0c39f49db1794180881f5cbcd7fc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1331235523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1331235523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,6 +202,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4354453777831816628, guid: 0baeff6ec6f881c4681e9c16ecd14c88,
+        type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 293075570}
     - target: {fileID: 8235548411040667426, guid: 0baeff6ec6f881c4681e9c16ecd14c88,
         type: 3}
       propertyPath: m_Name
