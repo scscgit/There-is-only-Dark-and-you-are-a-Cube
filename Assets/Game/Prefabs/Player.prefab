@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 200
-  rotationDegreesToAllowDirectionSwitch: 2
-  slerpRotationNormalizationIdle: 0.1
+  rotationDegreesToAllowDirectionSwitch: 15
+  slerpRotationNormalizationIdle: 0.25
 --- !u!114 &877875122
 MonoBehaviour:
   m_ObjectHideFlags: 0
