@@ -1,22 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace Game.Scripts.Player
 {
-    public float movementSpeed = 10f;
-    public Rigidbody rb;
-    private Vector3 movement;
-
-
-    void Update()
+    public class PlayerMovement : MonoBehaviour
     {
-        movement.x = Input.GetAxis("Horizontal");
-        movement.z = Input.GetAxis("Vertical");
-    }
+        public float movementSpeed = .20f;
 
-    void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movement * movementSpeed * Time.deltaTime);
+        private Vector3 _movement;
+        private Rigidbody _rigidbody;
+
+        void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        void Update()
+        {
+            _movement.x = Input.GetAxis("Horizontal");
+            _movement.z = Input.GetAxis("Vertical");
+        }
+
+        void FixedUpdate()
+        {
+            _rigidbody.AddTorque(new Vector3(_movement.z, 0, 0) * 1000 * movementSpeed, ForceMode.VelocityChange);
+            _rigidbody.MovePosition(transform.position + new Vector3(_movement.x * movementSpeed, 0, 0));
+        }
     }
 }
