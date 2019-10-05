@@ -4,9 +4,10 @@ namespace Game.Scripts.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public float movementSpeed = 200f;
+        public float movementSpeed = 10f;
         [Range(0.01f, 45f)] public float rotationDegreesToAllowDirectionSwitch = 10f;
         public float slerpRotationNormalizationIdle = .25f;
+        public float maxJumpVelocity = .2f;
 
         private Vector3 _movement;
         private Rigidbody _rigidbody;
@@ -75,6 +76,13 @@ namespace Game.Scripts.Player
             else
             {
                 BlockRotation();
+            }
+
+            // Make sure we don't jump too high
+            var velocity = _rigidbody.velocity;
+            if (velocity.y > maxJumpVelocity)
+            {
+                _rigidbody.velocity = new Vector3(velocity.x, 0, velocity.z);
             }
         }
 
