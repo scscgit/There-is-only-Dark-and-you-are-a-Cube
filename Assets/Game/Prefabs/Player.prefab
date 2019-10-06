@@ -463,8 +463,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3f1a325aab6fa4ea3de64af5ddeb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maximumIntensity: 5
   lightDec: 0.005
+  breathingIntensity: 0.2
+  breathingIntervalSec: 5
   light: {fileID: 4415797778780876075}
+  batteryUi: {fileID: 0}
 --- !u!114 &1331235526
 MonoBehaviour:
   m_ObjectHideFlags: 0

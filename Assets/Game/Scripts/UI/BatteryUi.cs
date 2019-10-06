@@ -17,7 +17,7 @@ namespace Game.Scripts.UI
 
         public void ChangePercentage(float newPercentage)
         {
-            if (newPercentage > 100 || newPercentage < 0)
+            if (newPercentage > 100)
             {
                 throw new Exception($"Invalid percentage range, received value {newPercentage}");
             }

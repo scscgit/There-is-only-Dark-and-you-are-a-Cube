@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 877875122, guid: 75a0c39f49db1794180881f5cbcd7fc4, type: 3}
+      propertyPath: batteryUi
+      value: 
+      objectReference: {fileID: 1507558274}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a0c39f49db1794180881f5cbcd7fc4, type: 3}
 --- !u!114 &1331235524 stripped
@@ -354,6 +358,18 @@ PrefabInstance:
       objectReference: {fileID: 1331235524}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0baeff6ec6f881c4681e9c16ecd14c88, type: 3}
+--- !u!114 &1507558274 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 434149668527596424, guid: a0acb1a3ff2123f49b917a9c3472cdf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8416370830034338988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d984e96449a0bb64c99e44e4d467ee9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1574112568
 PrefabInstance:
   m_ObjectHideFlags: 0

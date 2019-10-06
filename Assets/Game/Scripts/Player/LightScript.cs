@@ -5,32 +5,41 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour
 {
+    [Range(1f, 10f)] public float maximumIntensity = 5;
     public float lightDec = 0.005f;
+    [Range(0.1f, .9f)] public float breathingIntensity = 0.2f;
+    [Range(0f, 60f)] public float breathingIntervalSec = 5f;
     public new Light light;
+    public BatteryUi batteryUi;
 
-    private float _lightIntensity = 5;
-    private BatteryUi _batteryUi;
-
-    void Awake()
-    {
-        _batteryUi = GameObject.Find("BatteryUI").GetComponent<BatteryUi>();
-    }
+    private float _lightIntensity;
 
     void Start()
     {
-        light.intensity = _lightIntensity;
         light.shadows = LightShadows.Soft;
+        ChargeLight(maximumIntensity);
 
         // Set the position (or any transform property)
         FollowPlayer();
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(BreathingImpulse());
+    }
+
+    private IEnumerator BreathingImpulse()
+    {
+        while (breathingIntervalSec > 0)
+        {
+            yield return new WaitForSeconds(breathingIntervalSec);
+            ChargeLight(breathingIntensity);
+        }
+    }
+
     void FixedUpdate()
     {
-        if (_lightIntensity - lightDec > 0)
-        {
-            ChargeLight(_lightIntensity - lightDec);
-        }
+        ChargeLight(_lightIntensity - lightDec, true);
 
         FollowPlayer();
     }
@@ -40,10 +49,24 @@ public class LightScript : MonoBehaviour
         light.transform.position = transform.position;
     }
 
-    public void ChargeLight(float newLightIntensity)
+    public void ChargeLight(float newLightIntensity, bool allowDecrease = false)
     {
+        if (newLightIntensity < 0)
+        {
+            newLightIntensity = 0;
+        }
+
+        if (!allowDecrease && _lightIntensity > newLightIntensity)
+        {
+            return;
+        }
+
         _lightIntensity = newLightIntensity;
         light.intensity = _lightIntensity;
-        _batteryUi.ChangePercentage(newLightIntensity / 5f * 100);
+        if (batteryUi != null)
+        {
+            batteryUi.ChangePercentage(
+                (_lightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity) * 100);
+        }
     }
 }
