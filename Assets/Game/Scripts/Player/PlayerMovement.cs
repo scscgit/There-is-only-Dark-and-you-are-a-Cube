@@ -1,4 +1,3 @@
-using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -13,11 +12,28 @@ namespace Game.Scripts.Player
         private Vector3 _movement;
         private Rigidbody _rigidbody;
         private bool _horizontalMovement;
+        private int _lastMovementDegrees;
+        private ParticleSystem _movementParticles;
 
-        public float LastMovementDegrees { get; private set; }
+        public int LastMovementDegrees
+        {
+            get => _lastMovementDegrees;
+            private set
+            {
+                if (_lastMovementDegrees == value)
+                {
+                    return;
+                }
+
+                _lastMovementDegrees = value;
+                var shape = _movementParticles.shape;
+                shape.rotation = new Vector3(0, 180 + _lastMovementDegrees, 0);
+            }
+        }
 
         void Awake()
         {
+            _movementParticles = GameObject.Find("MovementParticles").GetComponent<ParticleSystem>();
             _rigidbody = GetComponent<Rigidbody>();
         }
 
@@ -25,6 +41,10 @@ namespace Game.Scripts.Player
         {
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.z = Input.GetAxisRaw("Vertical");
+
+            // Enable or disable particle emission based on input
+            var particleEmission = _movementParticles.emission;
+            particleEmission.enabled = _movement.x != 0 ^ _movement.z != 0;
 
             if (Input.GetKey(KeyCode.C))
             {
@@ -65,7 +85,7 @@ namespace Game.Scripts.Player
 
                 _rigidbody.AddTorque(new Vector3(_movement.z, 0, 0) * movementSpeed, ForceMode.VelocityChange);
 
-                LastMovementDegrees = _rigidbody.angularVelocity.x >= 0 ? 0 : 180;
+                LastMovementDegrees = _movement.z >= 0 ? 0 : 180;
             }
             else if (Mathf.Abs(_movement.x) > 0)
             {
@@ -87,7 +107,7 @@ namespace Game.Scripts.Player
 
                 _rigidbody.AddTorque(new Vector3(0, 0, -_movement.x) * movementSpeed, ForceMode.VelocityChange);
 
-                LastMovementDegrees = _rigidbody.angularVelocity.z >= 0 ? 270 : 90;
+                LastMovementDegrees = _movement.x >= 0 ? 90 : 270;
             }
             else
             {
