@@ -270,6 +270,11 @@ PrefabInstance:
       propertyPath: batteryUi
       value: 
       objectReference: {fileID: 1507558274}
+    - target: {fileID: 7313189064105613009, guid: 75a0c39f49db1794180881f5cbcd7fc4,
+        type: 3}
+      propertyPath: batteryUi
+      value: 
+      objectReference: {fileID: 1507558274}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a0c39f49db1794180881f5cbcd7fc4, type: 3}
 --- !u!114 &1331235524 stripped

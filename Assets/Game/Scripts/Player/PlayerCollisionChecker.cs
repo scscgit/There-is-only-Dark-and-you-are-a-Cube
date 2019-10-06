@@ -1,31 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollisionChecker : MonoBehaviour
+namespace Game.Scripts.Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerCollisionChecker : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.name == "Battery")
+        void Start()
         {
-            gameObject.GetComponent<LightScript>().ChargeLight(5);
-            Destroy(col.gameObject);
         }
-        if (col.gameObject.name == "DoorEntrance")
+
+        void Update()
         {
-            Destroy(col.gameObject);
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if (col.gameObject.name == "Battery")
+            {
+                transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                Destroy(col.gameObject);
+            }
+
+            if (col.gameObject.name == "DoorEntrance")
+            {
+                Destroy(col.gameObject);
+            }
         }
     }
 }

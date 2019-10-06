@@ -51,7 +51,7 @@ namespace Game.Scripts.Player
                 GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ZoomIn(
                     p => p, // Follow player's rotation (alternatively just copy it once)
                     Vector3.zero,
-                    () => GetComponent<LightScript>().ChargeLight(5)
+                    () => transform.Find("Light").GetComponent<LightScript>().ChargeLight(5)
                 );
             }
         }
