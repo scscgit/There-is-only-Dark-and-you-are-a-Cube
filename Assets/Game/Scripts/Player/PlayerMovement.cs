@@ -10,6 +10,8 @@ namespace Game.Scripts.Player
         public float slerpRotationNormalizationIdle = .25f;
         public float maxJumpVelocity = .2f;
 
+        public bool experimentalMovementLimit;
+
         private Vector3 _movement;
         private Rigidbody _rigidbody;
         private bool _horizontalMovement;
@@ -70,7 +72,8 @@ namespace Game.Scripts.Player
                 }
 
                 // If the previous movement was horizontal, make sure the cube stands on a side
-                if (_horizontalMovement && !IsNormalized())
+                // Also prevent a huge deviation from the normalization even if the movement is straight (Experiment)
+                if (_horizontalMovement && !IsNormalized() || !IsNormalizedExperimental(false, 1.8f))
                 {
                     BlockRotation();
                     return;
@@ -92,7 +95,8 @@ namespace Game.Scripts.Player
             else if (Mathf.Abs(_movement.x) > 0)
             {
                 // If the previous movement was vertical, make sure the cube stands on a side
-                if (!_horizontalMovement && !IsNormalized())
+                // Also prevent a huge deviation from the normalization even if the movement is straight (Experiment)
+                if (!_horizontalMovement && !IsNormalized() || !IsNormalizedExperimental(false, 1.8f))
                 {
                     BlockRotation();
                     return;
@@ -148,6 +152,12 @@ namespace Game.Scripts.Player
             return Mathf.Max(
                        RotationDifferenceBeforeNormalized(true), RotationDifferenceBeforeNormalized(false)
                    ) <= rotationDegreesToAllowDirectionSwitch;
+        }
+
+        bool IsNormalizedExperimental(bool horizontal, float factor)
+        {
+            return !experimentalMovementLimit
+                   || RotationDifferenceBeforeNormalized(horizontal) <= rotationDegreesToAllowDirectionSwitch * factor;
         }
 
         /// <summary>

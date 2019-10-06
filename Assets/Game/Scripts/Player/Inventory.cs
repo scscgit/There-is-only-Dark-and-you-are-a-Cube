@@ -6,39 +6,27 @@ namespace Game.Scripts.Player
 {
     public class Inventory : MonoBehaviour
     {
-        private List<DoorKey> keyList;
-        // Start is called before the first frame update
-        void Start()
-        {
-            keyList = new List<DoorKey>();
-        }
+        private List<DoorKey> _keyList = new List<DoorKey>();
 
-        // Update is called once per frame
-        void Update()
+        public bool HasDoorKey()
         {
-
-        }
-
-        public bool hasDoorKey()
-        {
-            if (keyList.Count > 0)
-                return true;
-            return false;
+            return _keyList.Count > 0;
         }
 
         public bool UseDoorKey()
         {
-            if (hasDoorKey())
+            if (HasDoorKey())
             {
-                keyList.RemoveAt(0);
+                _keyList.RemoveAt(0);
                 return true;
             }
+
             return false;
         }
 
-        public void addDoorKey()
+        public void AddDoorKey()
         {
-            keyList.Add(new DoorKey());
+            _keyList.Add(new DoorKey());
         }
     }
 }
