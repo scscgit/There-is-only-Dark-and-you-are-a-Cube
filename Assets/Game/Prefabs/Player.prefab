@@ -1325,11 +1325,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3779615604940969357}
     m_Modifications:
-    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Name
-      value: Light
-      objectReference: {fileID: 0}
     - target: {fileID: 1770238994466087772, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1384,6 +1379,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.043137256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
