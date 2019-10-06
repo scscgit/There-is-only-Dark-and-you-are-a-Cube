@@ -4,24 +4,12 @@ namespace Game.Scripts.Player
 {
     public class PlayerCollisionChecker : MonoBehaviour
     {
-        void Start()
+        private void OnTriggerStay(Collider other)
         {
-        }
-
-        void Update()
-        {
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log(other.gameObject.name);
             switch (other.gameObject.name)
             {
                 case "BatteryMesh":
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
-                    //Destroy(col.gameObject);
-                    break;
-                default:
                     break;
             }
         }
@@ -30,18 +18,23 @@ namespace Game.Scripts.Player
         {
             switch (col.gameObject.name)
             {
-                case "DoorEntrance":
+                case "Battery":
+                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    Destroy(col.gameObject);
+                    break;
+                case "SafeEntrance":
                     Destroy(col.gameObject);
                     break;
                 case "DoorKey":
-                    this.GetComponent<Inventory>().addDoorKey();
+                    GetComponent<Inventory>().addDoorKey();
                     Destroy(col.gameObject);
                     break;
-                case "KeyDoorEntrance":
-                    if (this.GetComponent<Inventory>().UseDoorKey())
+                case "KeyEntrance":
+                    if (GetComponent<Inventory>().UseDoorKey())
+                    {
                         Destroy(col.gameObject);
-                    break;
-                default:
+                    }
+
                     break;
             }
         }
