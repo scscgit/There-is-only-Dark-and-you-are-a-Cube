@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -33,8 +34,9 @@ namespace Game.Scripts.Player
 
         void Awake()
         {
-            _movementParticles = GameObject.Find("MovementParticles").GetComponent<ParticleSystem>();
-            _rigidbody = GetComponent<Rigidbody>();
+            _movementParticles = GameObject.Find("MovementParticles").GetComponent<ParticleSystem>()
+                                 ?? throw new Exception();
+            _rigidbody = GetComponent<Rigidbody>() ?? throw new Exception();
         }
 
         void Update()

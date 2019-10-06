@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Game.Scripts.UI;
 using UnityEngine;
@@ -13,21 +14,19 @@ namespace Game.Scripts.Player
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
         public BatteryUi batteryUi;
 
-        private float _lightIntensity;
         private Light _light;
+
+        public float LightIntensity { get; private set; }
 
         private void Awake()
         {
-            _light = GetComponent<Light>();
+            _light = GetComponent<Light>() ?? throw new Exception();
         }
 
         void Start()
         {
             _light.shadows = LightShadows.Soft;
             ChargeLight(maximumIntensity);
-
-            // Set the position (or any transform property)
-            FollowPlayer();
         }
 
         private void OnEnable()
@@ -46,14 +45,7 @@ namespace Game.Scripts.Player
 
         void FixedUpdate()
         {
-            ChargeLight(_lightIntensity - lightDec, true);
-
-            FollowPlayer();
-        }
-
-        private void FollowPlayer()
-        {
-            _light.transform.position = transform.position;
+            ChargeLight(LightIntensity - lightDec, true);
         }
 
         public void ChargeLight(float newLightIntensity, bool allowDecrease = false)
@@ -63,17 +55,17 @@ namespace Game.Scripts.Player
                 newLightIntensity = 0;
             }
 
-            if (!allowDecrease && _lightIntensity > newLightIntensity)
+            if (!allowDecrease && LightIntensity > newLightIntensity)
             {
                 return;
             }
 
-            _lightIntensity = newLightIntensity;
-            _light.intensity = _lightIntensity;
+            LightIntensity = newLightIntensity;
+            _light.intensity = LightIntensity;
             if (batteryUi != null)
             {
                 batteryUi.ChangePercentage(
-                    (_lightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity) * 100);
+                    (LightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity) * 100);
             }
         }
     }
