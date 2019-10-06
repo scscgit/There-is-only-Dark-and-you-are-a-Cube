@@ -12,14 +12,24 @@ namespace Game.Scripts.Player
         {
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log(other.gameObject.name);
+            switch (other.gameObject.name)
+            {
+                case "BatteryMesh":
+                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    //Destroy(col.gameObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         void OnCollisionEnter(Collision col)
         {
             switch (col.gameObject.name)
             {
-                case "Battery":
-                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
-                    //Destroy(col.gameObject);
-                    break;
                 case "DoorEntrance":
                     Destroy(col.gameObject);
                     break;
