@@ -1385,16 +1385,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light
       objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.4509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.043137256
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
 --- !u!4 &3235698024736632385 stripped

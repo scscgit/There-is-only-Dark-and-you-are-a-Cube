@@ -14,15 +14,25 @@ namespace Game.Scripts.Player
 
         void OnCollisionEnter(Collision col)
         {
-            if (col.gameObject.name == "Battery")
+            switch (col.gameObject.name)
             {
-                transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
-                Destroy(col.gameObject);
-            }
-
-            if (col.gameObject.name == "DoorEntrance")
-            {
-                Destroy(col.gameObject);
+                case "Battery":
+                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    Destroy(col.gameObject);
+                    break;
+                case "DoorEntrance":
+                    Destroy(col.gameObject);
+                    break;
+                case "DoorKey":
+                    this.GetComponent<Inventory>().addDoorKey();
+                    Destroy(col.gameObject);
+                    break;
+                case "KeyDoorEntrance":
+                    if (this.GetComponent<Inventory>().UseDoorKey())
+                        Destroy(col.gameObject);
+                    break;
+                default:
+                    break;
             }
         }
     }
