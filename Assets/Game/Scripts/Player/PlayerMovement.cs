@@ -1,3 +1,4 @@
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -13,6 +14,8 @@ namespace Game.Scripts.Player
         private Rigidbody _rigidbody;
         private bool _horizontalMovement;
 
+        public float LastMovementDegrees { get; private set; }
+
         void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -22,6 +25,15 @@ namespace Game.Scripts.Player
         {
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.z = Input.GetAxisRaw("Vertical");
+
+            if (Input.GetKey(KeyCode.C))
+            {
+                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ZoomIn(
+                    p => p, // Follow player's rotation (alternatively just copy it once)
+                    Vector3.zero,
+                    () => GetComponent<LightScript>().ChargeLight(5)
+                );
+            }
         }
 
         void FixedUpdate()
@@ -52,6 +64,8 @@ namespace Game.Scripts.Player
                 _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationX;
 
                 _rigidbody.AddTorque(new Vector3(_movement.z, 0, 0) * movementSpeed, ForceMode.VelocityChange);
+
+                LastMovementDegrees = _rigidbody.angularVelocity.x >= 0 ? 0 : 180;
             }
             else if (Mathf.Abs(_movement.x) > 0)
             {
@@ -72,6 +86,8 @@ namespace Game.Scripts.Player
                 _rigidbody.constraints |= RigidbodyConstraints.FreezeRotationX;
 
                 _rigidbody.AddTorque(new Vector3(0, 0, -_movement.x) * movementSpeed, ForceMode.VelocityChange);
+
+                LastMovementDegrees = _rigidbody.angularVelocity.z >= 0 ? 270 : 90;
             }
             else
             {

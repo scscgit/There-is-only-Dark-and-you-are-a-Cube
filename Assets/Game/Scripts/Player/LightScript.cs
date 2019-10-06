@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.UI;
 using UnityEngine;
 
 public class LightScript : MonoBehaviour
@@ -8,6 +9,12 @@ public class LightScript : MonoBehaviour
     public new Light light;
 
     private float _lightIntensity = 5;
+    private BatteryUi _batteryUi;
+
+    void Awake()
+    {
+        _batteryUi = GameObject.Find("BatteryUI").GetComponent<BatteryUi>();
+    }
 
     void Start()
     {
@@ -18,14 +25,13 @@ public class LightScript : MonoBehaviour
         FollowPlayer();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (_lightIntensity > 0)
+        if (_lightIntensity - lightDec > 0)
         {
-            _lightIntensity -= lightDec;
+            ChargeLight(_lightIntensity - lightDec);
         }
 
-        light.intensity = _lightIntensity;
         FollowPlayer();
     }
 
@@ -37,5 +43,7 @@ public class LightScript : MonoBehaviour
     public void ChargeLight(float newLightIntensity)
     {
         _lightIntensity = newLightIntensity;
+        light.intensity = _lightIntensity;
+        _batteryUi.ChangePercentage(newLightIntensity / 5f * 100);
     }
 }
