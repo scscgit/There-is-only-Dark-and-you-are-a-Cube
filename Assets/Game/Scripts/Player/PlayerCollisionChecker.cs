@@ -18,7 +18,7 @@ namespace Game.Scripts.Player
             {
                 case "Battery":
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
-                    Destroy(col.gameObject);
+                    //Destroy(col.gameObject);
                     break;
                 case "DoorEntrance":
                     Destroy(col.gameObject);
