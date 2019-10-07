@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumIntensity: 5
-  lightDec: 0.005
+  lightDec: 0
   breathingIntensity: 0.2
   breathingIntervalSec: 5
   batteryUi: {fileID: 0}

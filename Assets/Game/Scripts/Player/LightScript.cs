@@ -9,7 +9,7 @@ namespace Game.Scripts.Player
     public class LightScript : MonoBehaviour
     {
         [Range(0.05f, 10f)] public float maximumIntensity = 5;
-        public float lightDec = 0.005f;
+        public float lightDec = 0.000f;
         [Range(0.05f, .9f)] public float breathingIntensity = 0.2f;
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
         public BatteryUi batteryUi;
