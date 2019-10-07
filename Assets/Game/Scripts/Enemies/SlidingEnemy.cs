@@ -19,8 +19,8 @@ namespace Game.Scripts.Enemies
         private PlayerMovement _playerMovement;
         private bool _followingPlayer;
 
-        private readonly Vector3 LeftRayStart = new Vector3(-0.45f, 0, -0.45f);
-        private readonly Vector3 RightRayStart = new Vector3(0.45f, 0, 0.45f);
+        private readonly Vector3 LeftRayStart = new Vector3(-0.35f, 0, -0.35f);
+        private readonly Vector3 RightRayStart = new Vector3(0.35f, 0, 0.35f);
 
         private void OnDrawGizmos()
         {
@@ -99,6 +99,9 @@ namespace Game.Scripts.Enemies
                     // Ignore own children
                     continue;
                 }
+
+                // Visualize the impact
+                //Debug.DrawRay(hit.point, Vector3.up * 5);
 
                 // Only the First collider matters
                 // Alternatively hitTransform.IsChildOf(_playerMovement.transform)

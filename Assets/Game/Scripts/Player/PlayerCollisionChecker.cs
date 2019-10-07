@@ -59,9 +59,6 @@ namespace Game.Scripts.Player
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
                     Destroy(col.gameObject);
                     break;
-                case "SafeEntrance":
-                    Destroy(col.gameObject);
-                    break;
                 case "DoorKey":
                     GetComponent<Inventory>().AddDoorKey();
                     Destroy(col.gameObject);

@@ -4903,6 +4903,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4455500506432503268}
     m_Modifications:
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
     - target: {fileID: 1770238994466087772, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4958,11 +4963,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Name
-      value: Light
-      objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: maximumIntensity
@@ -4970,13 +4970,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
+      propertyPath: lightDec
+      value: 0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
       propertyPath: breathingIntensity
-      value: 0.05
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: breathingIntervalSec
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
