@@ -63,12 +63,15 @@ namespace Game.Scripts.Player
                     GetComponent<Inventory>().AddDoorKey();
                     Destroy(col.gameObject);
                     break;
+                case "Bullet(Clone)":
+                    transform.Find("Light").GetComponent<LightScript>().doDamage(0.4f);
+                    Destroy(col.gameObject);
+                    break;
                 case "KeyEntrance":
                     if (GetComponent<Inventory>().UseDoorKey())
                     {
                         Destroy(col.gameObject);
                     }
-
                     break;
                 case "WinEntrance":
                     // TODO

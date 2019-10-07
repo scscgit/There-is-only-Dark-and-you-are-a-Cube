@@ -48,6 +48,11 @@ namespace Game.Scripts.Player
             ChargeLight(LightIntensity - lightDec, true);
         }
 
+        public void doDamage(float dmg)
+        {
+            ChargeLight(LightIntensity - dmg, true);
+        }
+
         public void ChargeLight(float newLightIntensity, bool allowDecrease = false)
         {
             if (newLightIntensity < 0)
