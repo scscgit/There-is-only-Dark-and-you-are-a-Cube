@@ -25,7 +25,7 @@ namespace Game.Scripts
         private bool _zoomOut;
         private float _zoomRotation;
         private Quaternion _startingRotation;
-        private event Action AfterZoom;
+        private event Action<Action> AfterZoom;
         private Func<float, float> _zoomRotationFunc = input => input;
 
         void Start()
@@ -41,8 +41,18 @@ namespace Game.Scripts
                 _zoom += _zoomOut ? zoomSpeed : -zoomSpeed;
                 if (_zoomOut && _zoom >= 1 || _zoom <= 0)
                 {
-                    StopZoom();
-                    AfterZoom?.Invoke();
+                    if (AfterZoom == null)
+                    {
+                        StopZoom();
+                    }
+                    else
+                    {
+                        // Only run the invocation once and then do a noop
+                        var invocation = AfterZoom;
+                        AfterZoom = stopZoom => { };
+                        invocation.Invoke(StopZoom);
+                    }
+
                     return;
                 }
 
@@ -69,10 +79,11 @@ namespace Game.Scripts
             return _zoomRotation;
         }
 
+        /// <param name="afterZoom">Don't forget to invoke the action to finish the ZOOM unless you provide null</param>
         public void ZoomIn(
             Func<float, float> _zoomRotationDegreesParamPlayer,
             Vector3 offset,
-            Action afterZoom = null,
+            Action<Action> afterZoom = null,
             bool zoomOut = false)
         {
             _zoomOut = zoomOut;

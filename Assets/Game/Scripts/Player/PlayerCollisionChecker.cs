@@ -1,3 +1,4 @@
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -19,15 +20,24 @@ namespace Game.Scripts.Player
                     _zooming = true;
                     var offset = new Vector3(0, 1, -2);
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
+                    var fadeInOut = GameObject.Find("FadeInOut").GetComponent<FadeInOut>();
                     followPlayer.zoomSpeed = 0.005f;
                     //float? playerRotation = null;
-                    followPlayer.ZoomIn(
-                        p => 0, //p => playerRotation ?? (playerRotation = p).Value,
-                        offset,
+                    fadeInOut.FadeOutAndIn(
                         () => followPlayer.ZoomIn(
-                            p => 0, offset, () => { _zooming = false; }
-                        ),
-                        true
+                            p => 0, //p => playerRotation ?? (playerRotation = p).Value,
+                            offset,
+                            stopZoom1 => followPlayer.ZoomIn(
+                                p => 0,
+                                offset,
+                                stopZoom2 => fadeInOut.FadeOutAndIn(() =>
+                                {
+                                    stopZoom2();
+                                    _zooming = false;
+                                })
+                            ),
+                            true
+                        )
                     );
                     break;
             }
@@ -75,7 +85,10 @@ namespace Game.Scripts.Player
                     followPlayer.ZoomIn(
                         p => 0,
                         offset,
-                        () => { },
+                        stopZoom =>
+                        {
+                            // The End
+                        },
                         true
                     );
                     break;

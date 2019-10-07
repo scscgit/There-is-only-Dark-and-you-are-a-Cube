@@ -1,4 +1,5 @@
 using System;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -55,8 +56,16 @@ namespace Game.Scripts.Player
                 GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ZoomIn(
                     p => p, // Follow player's rotation (alternatively just copy it once)
                     Vector3.zero,
-                    () => transform.Find("Light").GetComponent<LightScript>().ChargeLight(5)
-                );
+                    stopZoom =>
+                    {
+                        stopZoom();
+                        transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    });
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GameObject.Find("FadeInOut").GetComponent<FadeInOut>().FadeOutAndIn();
             }
         }
 
