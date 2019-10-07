@@ -53,12 +53,18 @@ namespace Game.Scripts.Player
 
         void OnCollisionEnter(Collision col)
         {
-            switch (col.gameObject.name)
+            switch (col.gameObject.tag)
             {
                 case "Battery":
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
                     Destroy(col.gameObject);
                     break;
+                default:
+                    break;
+            }
+
+            switch (col.gameObject.name)
+            {
                 case "DoorKey":
                     GetComponent<Inventory>().AddDoorKey();
                     Destroy(col.gameObject);
