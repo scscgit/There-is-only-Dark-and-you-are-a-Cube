@@ -6,6 +6,7 @@ namespace Game.Scripts.UI
 {
     public class BatteryUi : MonoBehaviour
     {
+        private RectTransform _rect;
         private RectTransform _fullMask;
         private Transform _full;
         private LightScript _playerLight;
@@ -14,6 +15,7 @@ namespace Game.Scripts.UI
 
         void Awake()
         {
+            _rect = GetComponent<RectTransform>() ?? throw new Exception();
             _playerLight = GameObject.Find("Player/Light").GetComponent<LightScript>() ?? throw new Exception();
             _fullMask = transform.Find("FullMask").GetComponent<RectTransform>() ?? throw new Exception();
             _full = transform.Find("Full") ?? throw new Exception();
@@ -22,6 +24,9 @@ namespace Game.Scripts.UI
 
         public void ChangePercentage(float newPercentage)
         {
+            // Change the battery size based on maximum intensity
+            SetSize(_playerLight.maximumIntensity);
+
             if (newPercentage > 100)
             {
                 throw new Exception($"Invalid percentage range, received value {newPercentage}");
@@ -44,6 +49,14 @@ namespace Game.Scripts.UI
             }
 
             DisplayPercentage(_lastPercentage);
+        }
+
+        private void SetSize(float size)
+        {
+            _full.transform.SetParent(transform, true);
+            _rect.anchorMin = new Vector2(0.1f, 1f - 0.01f * size);
+            _rect.anchorMax = new Vector2(0.01f * size, 0.9f);
+            _full.transform.SetParent(_fullMask.transform, true);
         }
 
         private void DisplayPercentage(float percentage)

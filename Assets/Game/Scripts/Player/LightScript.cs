@@ -9,6 +9,7 @@ namespace Game.Scripts.Player
     public class LightScript : MonoBehaviour
     {
         [Range(0.05f, 10f)] public float maximumIntensity = 5;
+        [Range(0.05f, 10f)] public float intensityOfUpgrade = 5;
         public float lightDec = 0.005f;
         [Range(0.05f, .9f)] public float breathingIntensity = 0.2f;
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
@@ -72,6 +73,12 @@ namespace Game.Scripts.Player
                 batteryUi.ChangePercentage(
                     (LightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity) * 100);
             }
+        }
+
+        public void UpgradeBattery()
+        {
+            maximumIntensity += intensityOfUpgrade;
+            ChargeLight(LightIntensity + intensityOfUpgrade);
         }
     }
 }

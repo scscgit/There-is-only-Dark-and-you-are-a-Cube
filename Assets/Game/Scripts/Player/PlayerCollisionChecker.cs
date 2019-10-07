@@ -6,6 +6,7 @@ namespace Game.Scripts.Player
     public class PlayerCollisionChecker : MonoBehaviour
     {
         private bool _zooming;
+        public bool Zooming => _zooming;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,6 +17,10 @@ namespace Game.Scripts.Player
                     {
                         return;
                     }
+
+                    GameObject.Find("Player")
+                        .GetComponent<CheckpointManager>()
+                        .AddCheckpoint(other.gameObject.transform.parent.gameObject);
 
                     _zooming = true;
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
@@ -46,7 +51,8 @@ namespace Game.Scripts.Player
             switch (other.gameObject.name)
             {
                 case "ChargerMesh":
-                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    var light = transform.Find("Light").GetComponent<LightScript>();
+                    light.ChargeLight(light.maximumIntensity);
                     break;
             }
         }
@@ -56,7 +62,8 @@ namespace Game.Scripts.Player
             switch (col.gameObject.tag)
             {
                 case "Battery":
-                    transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
+                    var light = transform.Find("Light").GetComponent<LightScript>();
+                    light.UpgradeBattery();
                     Destroy(col.gameObject);
                     break;
                 case "Key":
@@ -78,6 +85,7 @@ namespace Game.Scripts.Player
                     {
                         Destroy(col.gameObject);
                     }
+
                     break;
                 case "WinEntrance":
                     // TODO

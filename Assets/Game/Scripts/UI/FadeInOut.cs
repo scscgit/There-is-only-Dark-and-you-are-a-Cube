@@ -8,9 +8,12 @@ namespace Game.Scripts.UI
     {
         [Range(0.001f, 0.1f)] public float speed = 0.05f;
 
+        public bool skipNextFadeOut;
+
         private Image _black;
         private float _current;
         private Action _action;
+        private bool _blocked;
 
         void Awake()
         {
@@ -24,6 +27,14 @@ namespace Game.Scripts.UI
 
         public void FadeOutAndIn(Action between = null, Action after = null)
         {
+            if (skipNextFadeOut)
+            {
+                skipNextFadeOut = false;
+                between?.Invoke();
+                FadeIn(after);
+                return;
+            }
+
             FadeOut(() =>
             {
                 between?.Invoke();
@@ -33,10 +44,17 @@ namespace Game.Scripts.UI
 
         public void FadeIn(Action after = null)
         {
+            if (_blocked)
+            {
+                return;
+            }
+
+            _blocked = true;
             SetAlpha(1);
             _current = 1;
             _action = () =>
             {
+                _blocked = false;
                 _current -= speed;
                 if (_current <= 0)
                 {
@@ -50,11 +68,18 @@ namespace Game.Scripts.UI
 
         public void FadeOut(Action after = null)
         {
+            if (_blocked)
+            {
+                return;
+            }
+
+            _blocked = true;
             SetAlpha(0);
 
             _current = 0;
             _action = () =>
             {
+                _blocked = false;
                 _current += speed;
                 if (_current >= 1)
                 {

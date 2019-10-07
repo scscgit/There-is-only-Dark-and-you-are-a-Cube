@@ -12,6 +12,7 @@ namespace Game.Scripts.Player
         public float slerpRotationNormalizationIdle = .25f;
         public float maxJumpVelocity = .2f;
 
+        public bool unrestrictedMovement;
         public bool experimentalMovementLimit;
 
         private Vector3 _movement;
@@ -72,6 +73,28 @@ namespace Game.Scripts.Player
 
         void FixedUpdate()
         {
+            if (unrestrictedMovement)
+            {
+                _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+                _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
+                _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationX;
+                RestrictJump();
+
+                if (_movement.z == 0 && _movement.x == 0)
+                {
+                    BlockRotation();
+                    return;
+                }
+
+                _rigidbody.AddTorque(
+                    new Vector3(_movement.z, 0, -_movement.x) * movementSpeed, ForceMode.VelocityChange);
+                LastMovementDegrees = _movement.z >= 0 ? 0 : 180;
+                LastMovementDegrees += _movement.x >= 0 ? 90 : 270;
+
+                return;
+            }
+
             if (Mathf.Abs(_movement.z) > 0)
             {
                 // Don't move both directions at once, and don't start to rotate until the other directions stops
@@ -130,6 +153,11 @@ namespace Game.Scripts.Player
                 BlockRotation();
             }
 
+            RestrictJump();
+        }
+
+        private void RestrictJump()
+        {
             // Make sure we don't jump too high
             var velocity = _rigidbody.velocity;
             if (velocity.y > maxJumpVelocity)
