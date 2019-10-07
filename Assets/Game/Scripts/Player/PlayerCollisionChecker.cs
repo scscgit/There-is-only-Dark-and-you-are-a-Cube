@@ -18,18 +18,16 @@ namespace Game.Scripts.Player
                     }
 
                     _zooming = true;
-                    var offset = new Vector3(0, 1, -2);
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
                     var fadeInOut = GameObject.Find("FadeInOut").GetComponent<FadeInOut>();
-                    followPlayer.zoomSpeed = 0.005f;
                     //float? playerRotation = null;
                     fadeInOut.FadeOutAndIn(
                         () => followPlayer.ZoomIn(
                             p => 0, //p => playerRotation ?? (playerRotation = p).Value,
-                            offset,
+                            followPlayer.zoomOffset,
                             stopZoom1 => followPlayer.ZoomIn(
                                 p => 0,
-                                offset,
+                                followPlayer.zoomOffset,
                                 stopZoom2 => fadeInOut.FadeOutAndIn(() =>
                                 {
                                     stopZoom2();

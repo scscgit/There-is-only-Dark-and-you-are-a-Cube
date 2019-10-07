@@ -146,6 +146,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   applyZoom: 0
-  zoomSpeed: 0.002
+  zoomSpeed: 0.009
   zoomRotationSpeed: 0.1
-  zoomOffset: {x: 0, y: 2, z: 0}
+  zoomOffset: {x: 0, y: 2.2, z: -2.5}
