@@ -8,6 +8,7 @@ namespace Game.Scripts.Player
     [RequireComponent(typeof(Light))]
     public class LightScript : MonoBehaviour
     {
+        [Range(0.05f, 10f)] public float startIntensity = 0;
         [Range(0.05f, 10f)] public float maximumIntensity = 5;
         [Range(0.05f, 10f)] public float intensityOfUpgrade = 5;
         public float lightDec = 0.005f;
@@ -27,7 +28,7 @@ namespace Game.Scripts.Player
         void Start()
         {
             _light.shadows = LightShadows.Soft;
-            ChargeLight(maximumIntensity);
+            ChargeLight(startIntensity);
         }
 
         private void OnEnable()

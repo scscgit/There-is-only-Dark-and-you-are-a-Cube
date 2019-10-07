@@ -58,11 +58,7 @@ namespace Game.Scripts.Player
                 GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ZoomIn(
                     p => p, // Follow player's rotation (alternatively just copy it once)
                     Vector3.zero,
-                    stopZoom =>
-                    {
-                        stopZoom();
-                        transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
-                    });
+                    stopZoom => { stopZoom(); });
             }
 
             if (Input.GetKeyDown(KeyCode.F))

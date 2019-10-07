@@ -1340,7 +1340,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Controls: Arrows/WSAD,
 
-    R for checkpoint return'
+    R returns to checkpoint'
 --- !u!222 &1914169504
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1690,6 +1690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3f1a325aab6fa4ea3de64af5ddeb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startIntensity: 5
   maximumIntensity: 5
   intensityOfUpgrade: 5
   lightDec: 0.005

@@ -53,6 +53,7 @@ namespace Game.Scripts.UI
 
         private void SetSize(float size)
         {
+            size = 5 + size / 2.5f;
             _full.transform.SetParent(transform, true);
             _rect.anchorMin = new Vector2(0.1f, 1f - 0.01f * size);
             _rect.anchorMax = new Vector2(0.01f * size, 0.9f);
