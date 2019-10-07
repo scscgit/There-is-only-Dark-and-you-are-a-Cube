@@ -18,7 +18,7 @@ namespace Game.Scripts
         {
             try
             {
-                SceneManager.LoadScene(AssetBundle.LoadFromFile("Assets/Game/Scene").GetAllScenePaths()[0]);
+                SceneManager.LoadScene(1);
             }
             catch (Exception e)
             {
@@ -30,7 +30,7 @@ namespace Game.Scripts
                 catch (Exception e2)
                 {
                     Debug.LogException(e2);
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(AssetBundle.LoadFromFile("Assets/Game/Scene").GetAllScenePaths()[0]);
                 }
             }
         }
