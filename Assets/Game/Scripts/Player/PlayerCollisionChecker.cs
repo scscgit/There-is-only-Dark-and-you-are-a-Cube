@@ -59,16 +59,16 @@ namespace Game.Scripts.Player
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
                     Destroy(col.gameObject);
                     break;
+                case "Key":
+                    GetComponent<Inventory>().AddDoorKey();
+                    Destroy(col.gameObject);
+                    break;
                 default:
                     break;
             }
 
             switch (col.gameObject.name)
             {
-                case "DoorKey":
-                    GetComponent<Inventory>().AddDoorKey();
-                    Destroy(col.gameObject);
-                    break;
                 case "Bullet(Clone)":
                     transform.Find("Light").GetComponent<LightScript>().doDamage(0.4f);
                     Destroy(col.gameObject);
