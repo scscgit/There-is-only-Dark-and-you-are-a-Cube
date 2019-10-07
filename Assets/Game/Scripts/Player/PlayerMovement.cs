@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Player
 {
+    [SelectionBase]
     public class PlayerMovement : MonoBehaviour
     {
         public float movementSpeed = 10f;

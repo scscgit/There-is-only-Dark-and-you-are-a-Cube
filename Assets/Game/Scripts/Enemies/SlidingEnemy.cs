@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Game.Scripts.Player;
 using UnityEngine;
 
@@ -17,14 +19,20 @@ namespace Game.Scripts.Enemies
         private PlayerMovement _playerMovement;
         private bool _followingPlayer;
 
+        private readonly Vector3 LeftRayStart = new Vector3(-0.45f, 0, -0.45f);
+        private readonly Vector3 RightRayStart = new Vector3(0.45f, 0, 0.45f);
+
         private void OnDrawGizmos()
         {
             // Beam to the sky if there isn't any Player
             var playerPosition =
                 GameObject.Find("Player")?.transform.position ?? transform.position + Vector3.up * playerProximity;
-            var direction = playerPosition - transform.position;
-            Gizmos.color = direction.magnitude < playerProximity ? Color.red : Color.green;
-            Gizmos.DrawRay(transform.position, direction.normalized * playerProximity);
+            var start = transform.position + transform.rotation * LeftRayStart;
+            Gizmos.color = (playerPosition - start).magnitude < playerProximity ? Color.red : Color.green;
+            Gizmos.DrawRay(start, (playerPosition - start).normalized * playerProximity);
+            start = transform.position + transform.rotation * RightRayStart;
+            Gizmos.color = (playerPosition - start).magnitude < playerProximity ? Color.red : Color.green;
+            Gizmos.DrawRay(start, (playerPosition - start).normalized * playerProximity);
         }
 
         void Awake()
@@ -68,8 +76,22 @@ namespace Game.Scripts.Enemies
                 return Mathf.Abs(distanceToPlayer.magnitude) < playerProximity;
             }
 
-            var rayHits = Physics.RaycastAll(transform.position, distanceToPlayer, playerProximity);
-            foreach (var hit in rayHits)
+            // Uses two rays to find a player
+            return PlayerFirstHitRay(Physics.RaycastAll(
+                       transform.position + transform.rotation * LeftRayStart,
+                       distanceToPlayer,
+                       playerProximity
+                   ).OrderBy(hit => hit.distance))
+                   && PlayerFirstHitRay(Physics.RaycastAll(
+                       transform.position + transform.rotation * RightRayStart,
+                       distanceToPlayer,
+                       playerProximity
+                   ).OrderBy(hit => hit.distance));
+        }
+
+        bool PlayerFirstHitRay(IEnumerable<RaycastHit> hits)
+        {
+            foreach (var hit in hits)
             {
                 var hitTransform = hit.collider.gameObject.transform;
                 if (hitTransform.IsChildOf(transform))
