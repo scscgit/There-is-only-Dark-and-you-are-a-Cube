@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5927931321639958964}
   - component: {fileID: 7247379240992613534}
   - component: {fileID: 621823259374972684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (9)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6894421902010060572}
   - component: {fileID: 8850961095273974117}
   - component: {fileID: 8414727034957791052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 3983592411698530848}
   - component: {fileID: 1469837359928682874}
   - component: {fileID: 7430775386112034462}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 9060960805657604632}
   - component: {fileID: 6087824199586494989}
   - component: {fileID: 6713564153034150665}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 877875121}
   - component: {fileID: 1331235526}
   - component: {fileID: 311558664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 6925235587204743178}
   - component: {fileID: 715548712139411280}
   - component: {fileID: 947483715837679893}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (8)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 788565864885095061}
   - component: {fileID: 2916880296967337667}
   - component: {fileID: 506128140226346891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (5)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 8342295469120507712}
   - component: {fileID: 5273528073275784152}
   - component: {fileID: 9039665335180212763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (10)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 4126444684567762868}
   - component: {fileID: 1263299115885872387}
   - component: {fileID: 4853985062176417019}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 773438816380074064}
   - component: {fileID: 2827069630090800802}
   - component: {fileID: 8412851641573692046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (11)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 7122820539973200044}
   - component: {fileID: 7110623759681244116}
   - component: {fileID: 1697222303339054308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (6)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 8596010069450528565}
   - component: {fileID: 2127738122255658612}
   - component: {fileID: 2752606657482779879}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 4728057558090769387}
   - component: {fileID: 2983608382962297252}
   - component: {fileID: 2131758487085496814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (7)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1207,7 +1207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760133998610818006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Borders
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1252,7 +1252,7 @@ GameObject:
   - component: {fileID: 6891316901501373510}
   - component: {fileID: 7506877566695979170}
   - component: {fileID: 7469437922588010040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1343,6 +1343,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
