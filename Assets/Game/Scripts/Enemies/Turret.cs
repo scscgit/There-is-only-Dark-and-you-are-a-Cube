@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    private AudioSource shotSound;
+
     public GameObject projectile;
     public float rotationSpeed = 1f;
     private GameObject lightGameObject;
@@ -14,6 +16,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shotSound = GetComponent<AudioSource>();
         bullets = new List<GameObject>();
         startShootRate = shootRate;
         // Make a game object
@@ -48,6 +51,8 @@ public class Turret : MonoBehaviour
             bullets.Add(bullet);
             if (bullets.Count >= 3)
                 removeFirstBullet();
+
+            shotSound.Play();
         }
         shootRate--;
     }
@@ -61,4 +66,5 @@ public class Turret : MonoBehaviour
             Destroy(tempOb);
         }
     }
+
 }
