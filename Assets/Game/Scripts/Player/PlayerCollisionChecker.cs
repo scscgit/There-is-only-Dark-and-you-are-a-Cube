@@ -11,7 +11,7 @@ namespace Game.Scripts.Player
         {
             switch (other.gameObject.name)
             {
-                case "BatteryMesh":
+                case "ChargerMesh":
                     if (_zooming)
                     {
                         return;
@@ -45,7 +45,7 @@ namespace Game.Scripts.Player
         {
             switch (other.gameObject.name)
             {
-                case "BatteryMesh":
+                case "ChargerMesh":
                     transform.Find("Light").GetComponent<LightScript>().ChargeLight(5);
                     break;
             }
