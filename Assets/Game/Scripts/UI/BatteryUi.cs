@@ -12,6 +12,7 @@ namespace Game.Scripts.UI
         private LightScript _playerLight;
         private float _savedBattery;
         private float _lastPercentage;
+        private float _lastMaxIntensity;
 
         void Awake()
         {
@@ -25,7 +26,7 @@ namespace Game.Scripts.UI
         public void ChangePercentage(float newPercentage)
         {
             // Change the battery size based on maximum intensity
-            SetSize(_playerLight.maximumIntensity);
+            SetSize();
 
             if (newPercentage > 100)
             {
@@ -51,8 +52,17 @@ namespace Game.Scripts.UI
             DisplayPercentage(_lastPercentage);
         }
 
-        private void SetSize(float size)
+        private void SetSize()
         {
+            var size = _playerLight.maximumIntensity;
+            // FPS optimization
+            if (_lastMaxIntensity == size)
+            {
+                return;
+            }
+
+            _lastMaxIntensity = size;
+
             size = 5 + size / 2.5f;
             _full.transform.SetParent(transform, true);
             _rect.anchorMin = new Vector2(0.1f, 1f - 0.01f * size);
@@ -62,6 +72,12 @@ namespace Game.Scripts.UI
 
         private void DisplayPercentage(float percentage)
         {
+            // FPS optimization
+            if (Mathf.Abs(_fullMask.anchorMin.x - (1 - percentage / 100f)) < 0.005f)
+            {
+                return;
+            }
+
             // We need to modify the mask while it's not the parent, so it won't resize the image. There's no other way
             _full.transform.SetParent(transform, true);
             var mask = _fullMask.anchorMin;

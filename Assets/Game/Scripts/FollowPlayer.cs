@@ -16,7 +16,7 @@ namespace Game.Scripts
         );
 
         public bool applyZoom;
-        [Range(0.0001f, 0.1f)] public float zoomSpeed = 0.009f;
+        [Range(0.0001f, 0.1f)] public float zoomSpeed = 0.011f;
         [Range(0.01f, 1f)] public float zoomRotationSpeed = 0.1f;
         public Vector3 zoomOffset = new Vector3(0, 2.2f, -2.5f);
 

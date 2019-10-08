@@ -65,6 +65,35 @@ namespace Game.Scripts.Player
             {
                 GameObject.Find("FadeInOut").GetComponent<FadeInOut>().FadeOutAndIn();
             }
+
+            // Unrestricted movement is optional, this is a secret user control
+            if (unrestrictedMovement && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                unrestrictedMovement = false;
+            }
+            else if (!unrestrictedMovement && Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                unrestrictedMovement = true;
+            }
+        }
+
+        private void OnGUI()
+        {
+            // Experimental quality settings
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                string[] names = QualitySettings.names;
+                GUILayout.BeginVertical();
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (GUILayout.Button(names[i]))
+                    {
+                        QualitySettings.SetQualityLevel(i, true);
+                    }
+                }
+
+                GUILayout.EndVertical();
+            }
         }
 
         void FixedUpdate()

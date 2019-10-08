@@ -98,7 +98,8 @@ namespace Game.Scripts.Player
             {
                 case "Bullet(Clone)":
                     _light.doDamage(col.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
-                    Destroy(col.gameObject);
+                    // Let the bullet bounce away. It's hot, so keep applying damage in case he's not drained yet
+                    //Destroy(col.gameObject);
                     break;
                 case "KeyEntrance":
                     if (GetComponent<Inventory>().UseDoorKey())

@@ -40,7 +40,16 @@ namespace Game.Scripts.Player
 
                     _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     _player.transform.rotation = Quaternion.identity;
-                    _player.transform.position = checkpoints.Last().transform.position;
+
+                    var checkpoint = checkpoints.Last().transform.position;
+                    if (checkpoint.y < 0.5)
+                    {
+                        // Make sure there are no future developer mistakes
+                        Debug.LogWarning("Charger was underground", checkpoints.Last());
+                        checkpoint.y = _player.transform.position.y;
+                    }
+
+                    _player.transform.position = checkpoint;
                 });
             }
         }

@@ -9,10 +9,10 @@ namespace Game.Scripts.Player
     public class LightScript : MonoBehaviour
     {
         [Range(0.05f, 10f)] public float startIntensity = 0;
-        [Range(0.05f, 10f)] public float maximumIntensity = 5;
+        [Range(0.05f, 50f)] public float maximumIntensity = 5;
         [Range(0.05f, 10f)] public float intensityOfUpgrade = 5;
         public float lightDec = 0.005f;
-        [Range(0.05f, .9f)] public float breathingIntensity = 0.2f;
+        [Range(0.05f, 5f)] public float breathingIntensity = 0.2f;
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
         public BatteryUi batteryUi;
 
