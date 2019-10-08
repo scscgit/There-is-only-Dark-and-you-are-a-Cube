@@ -1,4 +1,4 @@
-using Game.Scripts.Player;
+using Game.Scripts.Inspector;
 using UnityEngine;
 
 namespace Game.Scripts
@@ -6,8 +6,8 @@ namespace Game.Scripts
     [SelectionBase]
     public class Door : MonoBehaviour
     {
-        public bool requireKey;
-        public bool finalDoorToWin;
+        [ReadOnlyWhenPlaying] public bool requireKey;
+        [ReadOnlyWhenPlaying] public bool finalDoorToWin;
 
         void Start()
         {

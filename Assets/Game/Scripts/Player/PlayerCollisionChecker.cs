@@ -90,14 +90,14 @@ namespace Game.Scripts.Player
                     Destroy(col.gameObject);
                     break;
                 case "Enemy":
-                    _light.doDamage(10f);
+                    _light.DoDamage(10f);
                     break;
             }
 
             switch (col.gameObject.name)
             {
                 case "Bullet(Clone)":
-                    _light.doDamage(col.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
+                    _light.DoDamage(col.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
                     // Let the bullet bounce away. It's hot, so keep applying damage in case he's not drained yet
                     //Destroy(col.gameObject);
                     break;

@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Game.Scripts.Inspector;
 using Game.Scripts.UI;
 using UnityEngine;
 
@@ -15,14 +17,32 @@ namespace Game.Scripts.Player
         [Range(0.05f, 5f)] public float breathingIntensity = 0.2f;
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
         public BatteryUi batteryUi;
+        [ReadOnlyWhenPlaying] public Material[] controlEmissions;
 
         private Light _light;
+        private Color[] _controlEmissionsOriginalColors;
+
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
         public float LightIntensity { get; private set; }
 
         private void Awake()
         {
             _light = GetComponent<Light>() ?? throw new Exception();
+            _controlEmissionsOriginalColors = new Color[controlEmissions.Length];
+            for (var i = 0; i < controlEmissions.Length; i++)
+            {
+                _controlEmissionsOriginalColors[i] = controlEmissions[i].GetColor(EmissionColor);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            // Revert editor changes caused during game
+            for (var i = 0; i < controlEmissions.Length; i++)
+            {
+                controlEmissions[i].SetColor(EmissionColor, _controlEmissionsOriginalColors[i]);
+            }
         }
 
         void Start()
@@ -50,9 +70,9 @@ namespace Game.Scripts.Player
             ChargeLight(LightIntensity - lightDec, true);
         }
 
-        public void doDamage(float dmg)
+        public void DoDamage(float damage)
         {
-            ChargeLight(LightIntensity - dmg, true);
+            ChargeLight(LightIntensity - damage, true);
         }
 
         public void ChargeLight(float newLightIntensity, bool allowDecrease = false)
@@ -69,10 +89,19 @@ namespace Game.Scripts.Player
 
             LightIntensity = newLightIntensity;
             _light.intensity = LightIntensity;
+            var percentage = (LightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity);
             if (batteryUi != null)
             {
-                batteryUi.ChangePercentage(
-                    (LightIntensity - breathingIntensity) / (maximumIntensity - breathingIntensity) * 100);
+                batteryUi.ChangePercentage(percentage * 100);
+            }
+
+            // Update emissions as a percentage
+            for (var i = 0; i < controlEmissions.Length; i++)
+            {
+                controlEmissions[i].SetColor(
+                    EmissionColor,
+                    _controlEmissionsOriginalColors[i] * percentage
+                );
             }
         }
 
