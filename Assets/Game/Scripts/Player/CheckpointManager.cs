@@ -45,16 +45,21 @@ namespace Game.Scripts.Player
             }
         }
 
-        public void AddCheckpoint(GameObject checkpoint)
+        public bool AddCheckpoint(GameObject checkpoint)
         {
-            if (!checkpoints.Contains(checkpoint))
+            // Put it on top
+            var alreadySaved = checkpoints.Contains(checkpoint);
+            if (alreadySaved)
             {
-                checkpoints.Add(checkpoint);
+                checkpoints.Remove(checkpoint);
             }
+
+            checkpoints.Add(checkpoint);
 
             var light = checkpoint.transform.Find("Light").GetComponent<LightScript>();
             light.ChargeLight(light.maximumIntensity);
             light.lightDec = 0;
+            return alreadySaved;
         }
     }
 }

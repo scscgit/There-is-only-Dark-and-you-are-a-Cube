@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3147788273029852290}
   m_Layer: 0
   m_Name: L4
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3147788273044515558}
   m_Layer: 0
   m_Name: L1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 3147788273600039733}
   m_Layer: 0
   m_Name: L3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 3147788274066072687}
   m_Layer: 0
   m_Name: L2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 936709730}
   m_Layer: 0
   m_Name: SlidingEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,4 +455,4 @@ MonoBehaviour:
   playerProximity: 5
   onlyDirectPath: 1
   speed: 1.5
-  rotationSpeed: 0.1
+  rotationSpeed: 0.05

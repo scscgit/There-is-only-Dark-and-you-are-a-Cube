@@ -6,7 +6,15 @@ namespace Game.Scripts.Player
     public class PlayerCollisionChecker : MonoBehaviour
     {
         private bool _zooming;
+        private LightScript _light;
+        private bool _gameWon;
+
         public bool Zooming => _zooming;
+
+        private void Awake()
+        {
+            _light = transform.Find("Light").GetComponent<LightScript>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -18,9 +26,13 @@ namespace Game.Scripts.Player
                         return;
                     }
 
-                    GameObject.Find("Player")
+                    var alreadySaved = GameObject.Find("Player")
                         .GetComponent<CheckpointManager>()
                         .AddCheckpoint(other.gameObject.transform.parent.gameObject);
+                    if (!alreadySaved)
+                    {
+                        HUD.Instance.SetActiveCheckpointGained(true);
+                    }
 
                     _zooming = true;
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
@@ -35,6 +47,7 @@ namespace Game.Scripts.Player
                                 followPlayer.zoomOffset,
                                 stopZoom2 => fadeInOut.FadeOutAndIn(() =>
                                 {
+                                    HUD.Instance.SetActiveCheckpointGained(false);
                                     stopZoom2();
                                     _zooming = false;
                                 })
@@ -51,8 +64,7 @@ namespace Game.Scripts.Player
             switch (other.gameObject.name)
             {
                 case "ChargerMesh":
-                    var light = transform.Find("Light").GetComponent<LightScript>();
-                    light.ChargeLight(light.maximumIntensity);
+                    _light.ChargeLight(_light.maximumIntensity);
                     break;
             }
         }
@@ -62,22 +74,22 @@ namespace Game.Scripts.Player
             switch (col.gameObject.tag)
             {
                 case "Battery":
-                    var light = transform.Find("Light").GetComponent<LightScript>();
-                    light.UpgradeBattery();
+                    _light.UpgradeBattery();
                     Destroy(col.gameObject);
                     break;
                 case "Key":
                     GetComponent<Inventory>().AddDoorKey();
                     Destroy(col.gameObject);
                     break;
-                default:
+                case "Enemy":
+                    _light.doDamage(10f);
                     break;
             }
 
             switch (col.gameObject.name)
             {
                 case "Bullet(Clone)":
-                    transform.Find("Light").GetComponent<LightScript>().doDamage(0.4f);
+                    _light.doDamage(0.4f);
                     Destroy(col.gameObject);
                     break;
                 case "KeyEntrance":
@@ -88,7 +100,12 @@ namespace Game.Scripts.Player
 
                     break;
                 case "WinEntrance":
-                    // TODO
+                    if (_gameWon)
+                    {
+                        return;
+                    }
+
+                    _gameWon = true;
                     transform.localScale = new Vector3(3, 3, 3);
 
                     var offset = new Vector3(0, 1, -2);
@@ -99,7 +116,13 @@ namespace Game.Scripts.Player
                         offset,
                         stopZoom =>
                         {
-                            // The End
+                            GameObject.Find("FadeInOut")
+                                .GetComponent<FadeInOut>()
+                                .FadeOut(() =>
+                                {
+                                    // Game over
+                                    HUD.Instance.SetActiveGameWon(true);
+                                });
                         },
                         true
                     );

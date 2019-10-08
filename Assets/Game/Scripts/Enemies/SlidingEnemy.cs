@@ -18,6 +18,7 @@ namespace Game.Scripts.Enemies
         private Animator _animator;
         private PlayerMovement _playerMovement;
         private bool _followingPlayer;
+        private Vector3 _startingPosition;
 
         private readonly Vector3 LeftRayStart = new Vector3(-0.35f, 0, -0.35f);
         private readonly Vector3 RightRayStart = new Vector3(0.35f, 0, 0.35f);
@@ -40,10 +41,19 @@ namespace Game.Scripts.Enemies
             _rigidbody = GetComponent<Rigidbody>() ?? throw new Exception();
             _animator = GetComponent<Animator>() ?? throw new Exception();
             _playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>() ?? throw new Exception();
+            _startingPosition = transform.position;
         }
 
-        void Update()
+        void FixedUpdate()
         {
+            // Prevent a glitch by making them stack and walking over them, getting on the wall :)
+            if (transform.position.y > _startingPosition.y)
+            {
+                var position = transform.position;
+                position.y = _startingPosition.y;
+                transform.position = position;
+            }
+
             var distanceToPlayer = _playerMovement.transform.position - transform.position;
             if (PlayerProximity(distanceToPlayer))
             {
@@ -53,11 +63,7 @@ namespace Game.Scripts.Enemies
                     _animator.Play("SlidingStart");
                 }
 
-                var slerp = Quaternion.Slerp(transform.rotation, _playerMovement.transform.rotation, rotationSpeed);
-                var moveRotation = transform.rotation.eulerAngles;
-                moveRotation.y = slerp.eulerAngles.y;
-                _rigidbody.MoveRotation(Quaternion.Euler(moveRotation));
-                _rigidbody.velocity = distanceToPlayer.normalized * speed;
+                StepTowards(distanceToPlayer);
             }
             else
             {
@@ -66,7 +72,27 @@ namespace Game.Scripts.Enemies
                     _followingPlayer = false;
                     _animator.Play("SlidingEnd");
                 }
+
+                // Go back to spawn
+                var distanceToStart = _startingPosition - transform.position;
+                if (distanceToStart.magnitude > 1)
+                {
+                    StepTowards(distanceToStart);
+                }
             }
+        }
+
+        private void StepTowards(Vector3 distanceToTarget)
+        {
+            var slerp = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(distanceToTarget, Vector3.up),
+                rotationSpeed
+            );
+            var moveRotation = transform.rotation.eulerAngles;
+            moveRotation.y = slerp.eulerAngles.y;
+            _rigidbody.MoveRotation(Quaternion.Euler(moveRotation));
+            _rigidbody.velocity = distanceToTarget.normalized * speed;
         }
 
         bool PlayerProximity(Vector3 distanceToPlayer)
