@@ -29,32 +29,35 @@ namespace Game.Scripts.Player
                     var alreadySaved = GameObject.Find("Player")
                         .GetComponent<CheckpointManager>()
                         .AddCheckpoint(other.gameObject.transform.parent.gameObject);
-                    if (!alreadySaved)
-                    {
-                        HUD.Instance.SetActiveCheckpointGained(true);
-                    }
 
                     _zooming = true;
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
                     var fadeInOut = GameObject.Find("FadeInOut").GetComponent<FadeInOut>();
                     //float? playerRotation = null;
                     fadeInOut.FadeOutAndIn(
-                        () => followPlayer.ZoomIn(
-                            p => 0, //p => playerRotation ?? (playerRotation = p).Value,
-                            followPlayer.zoomOffset,
-                            stopZoom1 => followPlayer.ZoomIn(
-                                p => 0,
+                        () =>
+                        {
+                            if (!alreadySaved)
+                            {
+                                HUD.Instance.SetActiveCheckpointGained(true);
+                            }
+
+                            followPlayer.ZoomIn(
+                                p => 0, //p => playerRotation ?? (playerRotation = p).Value,
                                 followPlayer.zoomOffset,
-                                stopZoom2 => fadeInOut.FadeOutAndIn(() =>
-                                {
-                                    HUD.Instance.SetActiveCheckpointGained(false);
-                                    stopZoom2();
-                                    _zooming = false;
-                                })
-                            ),
-                            true
-                        )
-                    );
+                                stopZoom1 => followPlayer.ZoomIn(
+                                    p => 0,
+                                    followPlayer.zoomOffset,
+                                    stopZoom2 => fadeInOut.FadeOutAndIn(() =>
+                                    {
+                                        HUD.Instance.SetActiveCheckpointGained(false);
+                                        stopZoom2();
+                                        _zooming = false;
+                                    })
+                                ),
+                                true
+                            );
+                        });
                     break;
             }
         }
