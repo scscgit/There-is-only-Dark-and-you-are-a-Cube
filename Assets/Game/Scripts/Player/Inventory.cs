@@ -6,18 +6,18 @@ namespace Game.Scripts.Player
 {
     public class Inventory : MonoBehaviour
     {
-        private List<DoorKey> _keyList = new List<DoorKey>();
+        public List<DoorKey> keyList = new List<DoorKey>();
 
         public bool HasDoorKey()
         {
-            return _keyList.Count > 0;
+            return keyList.Count > 0;
         }
 
         public bool UseDoorKey()
         {
             if (HasDoorKey())
             {
-                _keyList.RemoveAt(0);
+                keyList.RemoveAt(0);
                 return true;
             }
 
@@ -26,7 +26,7 @@ namespace Game.Scripts.Player
 
         public void AddDoorKey()
         {
-            _keyList.Add(new DoorKey());
+            keyList.Add(new DoorKey());
         }
     }
 }

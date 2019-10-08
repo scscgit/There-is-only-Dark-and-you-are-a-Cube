@@ -733,10 +733,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: e95bed1d-f078-41de-8dd5-f9ca2f044f2d
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: There's only Dark and you're a Cube
+  organizationId: scsc
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -56,7 +56,7 @@ namespace Game.Scripts.Enemies
             {
                 GameObject tempOb = _bullets[0];
                 _bullets.RemoveAt(0);
-                Destroy(tempOb);
+                tempOb.DeleteSafely();
             }
         }
     }

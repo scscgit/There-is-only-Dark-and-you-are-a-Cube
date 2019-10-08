@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class Item
+public class Item : Component
 {
     public Item()
-    { }
+    {
+    }
 }

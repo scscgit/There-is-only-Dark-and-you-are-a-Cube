@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.UI;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace Game.Scripts.Player
 {
@@ -11,10 +12,12 @@ namespace Game.Scripts.Player
         public List<GameObject> checkpoints = new List<GameObject>();
 
         private PlayerMovement _player;
+        private LightScript _light;
 
-        void Start()
+        void Awake()
         {
             _player = GameObject.Find("Player").GetComponent<PlayerMovement>() ?? throw new Exception();
+            _light = transform.Find("Light").GetComponent<LightScript>() ?? throw new Exception();
         }
 
         void Update()
@@ -32,6 +35,17 @@ namespace Game.Scripts.Player
                     return;
                 }
 
+                var checkpoint = checkpoints.Last().transform.position;
+                Analytics.CustomEvent("checkpoint_restart_key", new Dictionary<string, object>
+                {
+                    {"position", transform.position},
+                    {"light_intensity", _light.LightIntensity},
+                    {"max_light_intensity", _light.maximumIntensity},
+                    {"time_elapsed", Time.timeSinceLevelLoad},
+                    {"number_of_checkpoints", checkpoints.Count},
+                    {"last_checkpoint", checkpoint},
+                });
+
                 var fadeInOut = GameObject.Find("FadeInOut").GetComponent<FadeInOut>();
                 fadeInOut.FadeOut(() =>
                 {
@@ -41,7 +55,6 @@ namespace Game.Scripts.Player
                     _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     _player.transform.rotation = Quaternion.identity;
 
-                    var checkpoint = checkpoints.Last().transform.position;
                     if (checkpoint.y < 0.5)
                     {
                         // Make sure there are no future developer mistakes

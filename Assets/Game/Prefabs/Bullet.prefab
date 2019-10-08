@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5652010779834754894}
   - component: {fileID: -2925425422878120386}
   - component: {fileID: 5654355095586117728}
+  - component: {fileID: 1989626173798661334}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -190,3 +191,16 @@ MonoBehaviour:
   breathingIntensity: 0.2
   breathingIntervalSec: 0
   batteryUi: {fileID: 0}
+  controlEmissionsOf: []
+--- !u!114 &1989626173798661334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199453951497180753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8a24cb82987e41baa735e88ca1bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

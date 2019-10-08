@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
@@ -16,6 +17,7 @@ namespace Game.Scripts
 
         public void StartGame()
         {
+            AnalyticsEvent.GameStart();
             try
             {
                 SceneManager.LoadScene(1);
