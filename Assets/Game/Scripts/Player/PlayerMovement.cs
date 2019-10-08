@@ -85,8 +85,22 @@ namespace Game.Scripts.Player
 
                 _rigidbody.AddTorque(
                     new Vector3(_movement.z, 0, -_movement.x) * movementSpeed, ForceMode.VelocityChange);
-                LastMovementDegrees = _movement.z >= 0 ? 0 : 180;
-                LastMovementDegrees += _movement.x >= 0 ? 90 : 270;
+
+                // Store the target rotation
+                if (_movement.z != 0 && _movement.x != 0)
+                {
+                    LastMovementDegrees = _movement.z > 0 ? (_movement.x > 0 ? 0 : 360) : 180;
+                    LastMovementDegrees += _movement.x > 0 ? 90 : 270;
+                    LastMovementDegrees = LastMovementDegrees / 2 % 360;
+                }
+                else if (_movement.z != 0)
+                {
+                    LastMovementDegrees = _movement.z > 0 ? 0 : 180;
+                }
+                else if (_movement.x != 0)
+                {
+                    LastMovementDegrees = _movement.x > 0 ? 90 : 270;
+                }
 
                 return;
             }

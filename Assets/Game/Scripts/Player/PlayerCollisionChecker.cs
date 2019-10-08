@@ -45,16 +45,21 @@ namespace Game.Scripts.Player
                             followPlayer.ZoomIn(
                                 p => 0, //p => playerRotation ?? (playerRotation = p).Value,
                                 followPlayer.zoomOffset,
-                                stopZoom1 => followPlayer.ZoomIn(
-                                    p => 0,
-                                    followPlayer.zoomOffset,
-                                    stopZoom2 => fadeInOut.FadeOutAndIn(() =>
-                                    {
-                                        HUD.Instance.SetActiveCheckpointGained(false);
-                                        stopZoom2();
-                                        _zooming = false;
-                                    })
-                                ),
+                                stopZoom1 =>
+                                {
+                                    followPlayer.zoomSpeed *= 1.8f;
+                                    followPlayer.ZoomIn(
+                                        p => 0,
+                                        followPlayer.zoomOffset,
+                                        stopZoom2 => fadeInOut.FadeOutAndIn(() =>
+                                        {
+                                            followPlayer.zoomSpeed /= 1.8f;
+                                            HUD.Instance.SetActiveCheckpointGained(false);
+                                            stopZoom2();
+                                            _zooming = false;
+                                        })
+                                    );
+                                },
                                 true
                             );
                         });
@@ -92,7 +97,7 @@ namespace Game.Scripts.Player
             switch (col.gameObject.name)
             {
                 case "Bullet(Clone)":
-                    _light.doDamage(0.4f);
+                    _light.doDamage(col.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
                     Destroy(col.gameObject);
                     break;
                 case "KeyEntrance":

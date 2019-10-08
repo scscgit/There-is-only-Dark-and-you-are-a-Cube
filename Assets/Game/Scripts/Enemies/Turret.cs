@@ -1,70 +1,63 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+namespace Game.Scripts.Enemies
 {
-    private AudioSource shotSound;
-
-    public GameObject projectile;
-    public float rotationSpeed = 1f;
-    private GameObject lightGameObject;
-    private Light lightComp;
-    public int shootRate = 20;
-    private int startShootRate;
-    private List<GameObject> bullets;
-    // Start is called before the first frame update
-    void Start()
+    public class Turret : MonoBehaviour
     {
-        shotSound = GetComponent<AudioSource>();
-        bullets = new List<GameObject>();
-        startShootRate = shootRate;
-        // Make a game object
-        lightGameObject = new GameObject("The Light");
+        public GameObject projectile;
+        [Range(0.1f, 60f)] public float rotationSpeed = 4f;
+        [Range(2, 100)] public int startShootRate = 20;
 
-        // Add the light component
-        Light lightComp = lightGameObject.AddComponent<Light>();
+        private int _shootRate;
+        private List<GameObject> _bullets;
+        private AudioSource[] _shotSound;
+        private int _shotSoundIndex;
 
-        // Set color and position
-        lightComp.color = Color.white;
-
-        // Set the position (or any transform property)
-        lightGameObject.transform.position = new Vector3(transform.position.x, transform.position.y+1, transform.position.z);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
-        this.transform.Rotate(0, rotationSpeed, 0, Space.World);
-        if (shootRate==0)
+        // Start is called before the first frame update
+        void Start()
         {
-            shootRate = startShootRate;
-            Vector3 vec = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            GameObject bullet = Instantiate(projectile, transform.position + transform.forward * 0.65f, Quaternion.identity) as GameObject;
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 15, ForceMode.VelocityChange);
-            bullets.Add(bullet);
-            if (bullets.Count >= 3)
-                removeFirstBullet();
-
-            shotSound.Play();
+            _shotSound = GetComponents<AudioSource>();
+            _bullets = new List<GameObject>();
+            _shootRate = startShootRate;
         }
-        shootRate--;
-    }
 
-    private void removeFirstBullet()
-    {
-        if (bullets.Count>0)
+        private void OnDrawGizmos()
         {
-            GameObject tempOb = bullets[0];
-            bullets.RemoveAt(0);
-            Destroy(tempOb);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(transform.position, transform.forward * 10);
+        }
+
+        private void FixedUpdate()
+        {
+            transform.Rotate(0, rotationSpeed, 0, Space.World);
+            if (_shootRate == 0)
+            {
+                _shootRate = startShootRate;
+                GameObject bullet =
+                    Instantiate(projectile, transform.position + transform.forward * 0.65f, Quaternion.identity);
+                bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 30, ForceMode.VelocityChange);
+                _bullets.Add(bullet);
+                if (_bullets.Count >= 30)
+                {
+                    RemoveFirstBullet();
+                }
+
+                _shotSound[_shotSoundIndex].Play();
+                _shotSoundIndex = (_shotSoundIndex + 1) % _shotSound.Length;
+            }
+
+            _shootRate--;
+        }
+
+        private void RemoveFirstBullet()
+        {
+            if (_bullets.Count > 0)
+            {
+                GameObject tempOb = _bullets[0];
+                _bullets.RemoveAt(0);
+                Destroy(tempOb);
+            }
         }
     }
-
 }
