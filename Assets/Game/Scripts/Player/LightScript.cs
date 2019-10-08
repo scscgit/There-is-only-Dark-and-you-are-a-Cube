@@ -17,7 +17,7 @@ namespace Game.Scripts.Player
         [Range(0.05f, 5f)] public float breathingIntensity = 0.2f;
         [Range(0f, 60f)] public float breathingIntervalSec = 5f;
         public BatteryUi batteryUi;
-        [ReadOnlyWhenPlaying] public Material[] controlEmissions;
+        [ReadOnlyWhenPlaying] public Renderer[] controlEmissionsOf;
 
         private Light _light;
         private Color[] _controlEmissionsOriginalColors;
@@ -29,19 +29,10 @@ namespace Game.Scripts.Player
         private void Awake()
         {
             _light = GetComponent<Light>() ?? throw new Exception();
-            _controlEmissionsOriginalColors = new Color[controlEmissions.Length];
-            for (var i = 0; i < controlEmissions.Length; i++)
+            _controlEmissionsOriginalColors = new Color[controlEmissionsOf.Length];
+            for (var i = 0; i < controlEmissionsOf.Length; i++)
             {
-                _controlEmissionsOriginalColors[i] = controlEmissions[i].GetColor(EmissionColor);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            // Revert editor changes caused during game
-            for (var i = 0; i < controlEmissions.Length; i++)
-            {
-                controlEmissions[i].SetColor(EmissionColor, _controlEmissionsOriginalColors[i]);
+                _controlEmissionsOriginalColors[i] = controlEmissionsOf[i].material.GetColor(EmissionColor);
             }
         }
 
@@ -96,9 +87,9 @@ namespace Game.Scripts.Player
             }
 
             // Update emissions as a percentage
-            for (var i = 0; i < controlEmissions.Length; i++)
+            for (var i = 0; i < controlEmissionsOf.Length; i++)
             {
-                controlEmissions[i].SetColor(
+                controlEmissionsOf[i].material.SetColor(
                     EmissionColor,
                     _controlEmissionsOriginalColors[i] * percentage
                 );

@@ -1436,6 +1436,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
+      propertyPath: controlEmissionsOf.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
       propertyPath: startIntensity
       value: 0.1
       objectReference: {fileID: 0}
@@ -1444,6 +1449,71 @@ PrefabInstance:
       propertyPath: intensityOfUpgrade
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[0]
+      value: 
+      objectReference: {fileID: 4853985062176417019}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[1]
+      value: 
+      objectReference: {fileID: 2127738122255658612}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[2]
+      value: 
+      objectReference: {fileID: 7506877566695979170}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[3]
+      value: 
+      objectReference: {fileID: 8850961095273974117}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[4]
+      value: 
+      objectReference: {fileID: 1469837359928682874}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[5]
+      value: 
+      objectReference: {fileID: 6087824199586494989}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[6]
+      value: 
+      objectReference: {fileID: 2916880296967337667}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[7]
+      value: 
+      objectReference: {fileID: 7110623759681244116}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[8]
+      value: 
+      objectReference: {fileID: 2983608382962297252}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[9]
+      value: 
+      objectReference: {fileID: 715548712139411280}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[10]
+      value: 
+      objectReference: {fileID: 7247379240992613534}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[11]
+      value: 
+      objectReference: {fileID: 5273528073275784152}
+    - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: controlEmissionsOf.Array.data[12]
+      value: 
+      objectReference: {fileID: 2827069630090800802}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
 --- !u!4 &3235698024736632385 stripped
