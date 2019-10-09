@@ -79,20 +79,9 @@ namespace Game.Scripts.Player
 
         private void OnGUI()
         {
-            // Experimental quality settings
             if (Input.GetKey(KeyCode.Escape))
             {
-                string[] names = QualitySettings.names;
-                GUILayout.BeginVertical();
-                for (int i = 0; i < names.Length; i++)
-                {
-                    if (GUILayout.Button(names[i]))
-                    {
-                        QualitySettings.SetQualityLevel(i, true);
-                    }
-                }
-
-                GUILayout.EndVertical();
+                MainMenu.QualitySettingsGui();
             }
         }
 
@@ -227,7 +216,8 @@ namespace Game.Scripts.Player
         bool IsNormalized()
         {
             return Mathf.Max(
-                       RotationDifferenceBeforeNormalized(true), RotationDifferenceBeforeNormalized(false)
+                       RotationDifferenceBeforeNormalized(true),
+                       RotationDifferenceBeforeNormalized(false)
                    ) <= rotationDegreesToAllowDirectionSwitch;
         }
 

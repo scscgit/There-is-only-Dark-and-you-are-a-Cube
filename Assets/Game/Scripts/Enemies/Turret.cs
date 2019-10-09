@@ -14,7 +14,6 @@ namespace Game.Scripts.Enemies
         private AudioSource[] _shotSound;
         private int _shotSoundIndex;
 
-        // Start is called before the first frame update
         void Start()
         {
             _shotSound = GetComponents<AudioSource>();
@@ -36,6 +35,7 @@ namespace Game.Scripts.Enemies
                 _shootRate = startShootRate;
                 GameObject bullet =
                     Instantiate(projectile, transform.position + transform.forward * 0.65f, Quaternion.identity);
+                bullet.transform.parent = transform.parent;
                 bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 30, ForceMode.VelocityChange);
                 _bullets.Add(bullet);
                 if (_bullets.Count >= 30)

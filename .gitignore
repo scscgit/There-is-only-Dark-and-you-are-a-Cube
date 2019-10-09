@@ -52,3 +52,6 @@ sysinfo.txt
 /Assets/Plugins/GitHub.meta
 /Assets/Plugins/GitHub/Editor.meta
 /Assets/Plugins/GitHub/Editor/*
+/Assets/Plugins/Editor.meta
+/Assets/Plugins/Editor/JetBrains.meta
+/Assets/Plugins/Editor/JetBrains/*
