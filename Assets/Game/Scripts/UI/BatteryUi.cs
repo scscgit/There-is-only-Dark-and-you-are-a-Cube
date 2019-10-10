@@ -1,12 +1,14 @@
 using System;
 using Game.Scripts.Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Scripts.UI
 {
     public class BatteryUi : MonoBehaviour
     {
         private RectTransform _rect;
+        private Image _image;
         private RectTransform _fullMask;
         private Transform _full;
         private LightScript _playerLight;
@@ -17,6 +19,7 @@ namespace Game.Scripts.UI
         void Awake()
         {
             _rect = GetComponent<RectTransform>() ?? throw new Exception();
+            _image = GetComponent<Image>() ?? throw new Exception();
             _playerLight = GameObject.Find("Player/Light").GetComponent<LightScript>() ?? throw new Exception();
             _fullMask = transform.Find("FullMask").GetComponent<RectTransform>() ?? throw new Exception();
             _full = transform.Find("Full") ?? throw new Exception();
@@ -59,6 +62,19 @@ namespace Game.Scripts.UI
             if (_lastMaxIntensity == size)
             {
                 return;
+            }
+
+            // Hide the UI for very small max intensity values
+            if (size < 1)
+            {
+                _image.enabled = false;
+                // Also hide the colorful image behind mask in case player uses charger (value: max minus breathing)
+                _full.gameObject.SetActive(false);
+            }
+            else if (_lastMaxIntensity < 1)
+            {
+                _image.enabled = true;
+                _full.gameObject.SetActive(true);
             }
 
             _lastMaxIntensity = size;

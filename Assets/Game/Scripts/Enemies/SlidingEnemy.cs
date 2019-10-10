@@ -22,6 +22,7 @@ namespace Game.Scripts.Enemies
 
         private readonly Vector3 LeftRayStart = new Vector3(-0.35f, 0, -0.35f);
         private readonly Vector3 RightRayStart = new Vector3(0.35f, 0, 0.35f);
+        private static readonly int Sliding = Animator.StringToHash("sliding");
 
         private void OnDrawGizmos()
         {
@@ -60,17 +61,21 @@ namespace Game.Scripts.Enemies
                 if (!_followingPlayer)
                 {
                     _followingPlayer = true;
-                    _animator.Play("SlidingStart");
+                    _animator.SetBool(Sliding, true);
                 }
-
-                StepTowards(distanceToPlayer);
+                else
+                {
+                    // Only move towards player if this is the second iteration (marked by true _followingPlayer),
+                    // otherwise the movement would glitch back and forth with Player in places like a door
+                    StepTowards(distanceToPlayer);
+                }
             }
             else
             {
                 if (_followingPlayer)
                 {
                     _followingPlayer = false;
-                    _animator.Play("SlidingEnd");
+                    _animator.SetBool(Sliding, false);
                 }
 
                 // Go back to spawn

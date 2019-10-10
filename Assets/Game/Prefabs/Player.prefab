@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07b175560e3f47468b1a39ed3009182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyList: []
 --- !u!114 &4955173841414697064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1424,16 +1425,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.4509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.043137256
-      objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: controlEmissionsOf.Array.size
@@ -1441,13 +1432,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
-      propertyPath: startIntensity
-      value: 0.1
+      propertyPath: maximumIntensity
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: intensityOfUpgrade
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
@@ -1514,6 +1505,16 @@ PrefabInstance:
       propertyPath: controlEmissionsOf.Array.data[12]
       value: 
       objectReference: {fileID: 2827069630090800802}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.043137256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
 --- !u!4 &3235698024736632385 stripped

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Game.Scripts.Inspector;
 using Game.Scripts.UI;
 using UnityEngine;
@@ -10,7 +9,7 @@ namespace Game.Scripts.Player
     [RequireComponent(typeof(Light))]
     public class LightScript : MonoBehaviour
     {
-        [Range(0.05f, 10f)] public float startIntensity = 0;
+        [Range(0, 10f)] public float startIntensity;
         [Range(0.05f, 50f)] public float maximumIntensity = 5;
         [Range(0.05f, 10f)] public float intensityOfUpgrade = 5;
         public float lightDec = 0.005f;
@@ -33,6 +32,12 @@ namespace Game.Scripts.Player
             for (var i = 0; i < controlEmissionsOf.Length; i++)
             {
                 _controlEmissionsOriginalColors[i] = controlEmissionsOf[i].material.GetColor(EmissionColor);
+            }
+
+            if (batteryUi != null && maximumIntensity <= breathingIntensity)
+            {
+                throw new Exception(
+                    "Incorrect intensity combination, please make sure maximumIntensity > breathingIntensity");
             }
         }
 
