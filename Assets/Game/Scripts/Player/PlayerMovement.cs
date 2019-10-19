@@ -1,6 +1,7 @@
 using System;
 using Game.Scripts.UI;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace Game.Scripts.Player
 {
@@ -46,8 +47,8 @@ namespace Game.Scripts.Player
 
         void Update()
         {
-            _movement.x = Input.GetAxisRaw("Horizontal");
-            _movement.z = Input.GetAxisRaw("Vertical");
+            _movement.x = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+            _movement.z = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
             // Enable or disable particle emission based on input
             var particleEmission = _movementParticles.emission;
