@@ -1,16 +1,18 @@
 using System;
 using Game.Scripts.Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Game.Scripts.UI
 {
-    public class BatteryUi : MonoBehaviour
+    public class BatteryUi : MonoBehaviour, IPointerClickHandler
     {
         private RectTransform _rect;
         private Image _image;
         private RectTransform _fullMask;
         private Transform _full;
+        private Transform _disabledBattery;
         private LightScript _playerLight;
         private float _savedBattery;
         private float _lastPercentage;
@@ -23,6 +25,7 @@ namespace Game.Scripts.UI
             _playerLight = GameObject.Find("Player/Light").GetComponent<LightScript>() ?? throw new Exception();
             _fullMask = transform.Find("FullMask").GetComponent<RectTransform>() ?? throw new Exception();
             _full = transform.Find("Full") ?? throw new Exception();
+            _disabledBattery = transform.Find("Disabled") ?? throw new Exception();
             _full.transform.SetParent(_fullMask.transform, true);
         }
 
@@ -120,7 +123,7 @@ namespace Game.Scripts.UI
             }
         }
 
-        private void OnMouseDown()
+        public void OnPointerClick(PointerEventData eventData)
         {
             ToggleBatteryStorage();
         }
@@ -133,10 +136,12 @@ namespace Game.Scripts.UI
                 var charge = _savedBattery;
                 _savedBattery = 0;
                 _playerLight.ChargeLight(charge);
+                _disabledBattery.gameObject.SetActive(false);
             }
             else
             {
                 StoreBatteryCharge(_playerLight.LightIntensity);
+                _disabledBattery.gameObject.SetActive(true);
             }
         }
 
