@@ -58,7 +58,7 @@ namespace Game.Scripts.UI
         private void SetSize()
         {
             var size = _playerLight.maximumIntensity;
-            // FPS optimization
+            // FPS optimization to save effort if there's no change to be done
             if (_lastMaxIntensity == size)
             {
                 return;
@@ -79,16 +79,26 @@ namespace Game.Scripts.UI
 
             _lastMaxIntensity = size;
 
-            size = 5 + size / 2.5f;
+            // Update the size of Battery UI based on the current max. intensity, including the mask of a full battery
+            size = 4 + size / 3.5f;
             _full.transform.SetParent(transform, true);
-            _rect.anchorMin = new Vector2(0.1f, 1f - 0.01f * size);
-            _rect.anchorMax = new Vector2(0.01f * size, 0.9f);
+            _rect.anchorMin = new Vector2(
+                0.11f,
+                0.89f - 0.01f * size
+            );
+            _rect.anchorMax = new Vector2(
+                0.11f + 0.01f * size,
+                0.89f
+            );
+            // The sizeDelta (pixel difference added on top of anchors) is approximately of the same magnitude,
+            // so that we gain double effect - one based on responsive display ratio, and the second one using pixels
+            _rect.sizeDelta = new Vector2(10f * size, 5f * size);
             _full.transform.SetParent(_fullMask.transform, true);
         }
 
         private void DisplayPercentage(float percentage)
         {
-            // FPS optimization
+            // FPS optimization to only resize if there's a large enough, visible difference
             if (Mathf.Abs(_fullMask.anchorMin.x - (1 - percentage / 100f)) < 0.005f)
             {
                 return;
@@ -110,10 +120,8 @@ namespace Game.Scripts.UI
             }
         }
 
-        [Obsolete]
         private void OnMouseDown()
         {
-            // Doesn't work, and I don't know why :(
             ToggleBatteryStorage();
         }
 
