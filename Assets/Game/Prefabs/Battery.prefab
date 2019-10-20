@@ -138,7 +138,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: e4667d1c1405dac4995511cc8d69b618, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5894489077686897007}
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059802, w: 0.6532815}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4455500506432503268}
@@ -340,6 +340,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7042175
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}

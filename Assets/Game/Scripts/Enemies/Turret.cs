@@ -8,16 +8,15 @@ namespace Game.Scripts.Enemies
         public GameObject projectile;
         [Range(0.1f, 60f)] public float rotationSpeed = 4f;
         [Range(2, 100)] public int startShootRate = 20;
+        public List<GameObject> bullets;
 
         private int _shootRate;
-        private List<GameObject> _bullets;
         private AudioSource[] _shotSound;
         private int _shotSoundIndex;
 
-        void Start()
+        void Awake()
         {
             _shotSound = GetComponents<AudioSource>();
-            _bullets = new List<GameObject>();
             _shootRate = startShootRate;
         }
 
@@ -37,8 +36,8 @@ namespace Game.Scripts.Enemies
                     Instantiate(projectile, transform.position + transform.forward * 0.65f, Quaternion.identity);
                 bullet.transform.parent = transform.parent;
                 bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 30, ForceMode.VelocityChange);
-                _bullets.Add(bullet);
-                if (_bullets.Count >= 30)
+                bullets.Add(bullet);
+                if (bullets.Count >= 30)
                 {
                     RemoveFirstBullet();
                 }
@@ -52,10 +51,10 @@ namespace Game.Scripts.Enemies
 
         private void RemoveFirstBullet()
         {
-            if (_bullets.Count > 0)
+            if (bullets.Count > 0)
             {
-                GameObject tempOb = _bullets[0];
-                _bullets.RemoveAt(0);
+                GameObject tempOb = bullets[0];
+                bullets.RemoveAt(0);
                 tempOb.DeleteSafely();
             }
         }
