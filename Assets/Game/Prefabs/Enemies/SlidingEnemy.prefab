@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda8642661893af4e83e4d050932a50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alive: 1
   playerProximity: 5
   onlyDirectPath: 1
   speed: 1.5

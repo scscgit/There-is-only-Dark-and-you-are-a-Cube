@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.Player;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Enemies
@@ -9,10 +10,11 @@ namespace Game.Scripts.Enemies
     [SelectionBase]
     public class SlidingEnemy : MonoBehaviour
     {
+        public bool alive = true;
         public float playerProximity = 5f;
         public bool onlyDirectPath = true;
         public float speed = 1.5f;
-        public float rotationSpeed = .1f;
+        public float rotationSpeed = .05f;
 
         private Rigidbody _rigidbody;
         private Animator _animator;
@@ -47,6 +49,11 @@ namespace Game.Scripts.Enemies
 
         void FixedUpdate()
         {
+            if (!alive)
+            {
+                return;
+            }
+
             // Prevent a glitch by making them stack and walking over them, getting on the wall :)
             if (transform.position.y > _startingPosition.y)
             {
@@ -140,6 +147,28 @@ namespace Game.Scripts.Enemies
             }
 
             return false;
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if (!col.gameObject.activeSelf)
+            {
+                return;
+            }
+
+            switch (col.gameObject.name)
+            {
+                case "Bullet(Clone)":
+                    // A bullet can only hit once, and it has to be powerful enough
+                    if (col.gameObject.GetComponent<Bullet>().TryFirstHit()
+                        && col.gameObject.GetComponent<Rigidbody>().velocity.magnitude > 2)
+                    {
+                        Achievements.Instance.Gain(Achievements.Achievement.TurretHitSlidingEnemy);
+                        _animator.enabled = false;
+                    }
+
+                    break;
+            }
         }
     }
 }

@@ -36,15 +36,7 @@ namespace Game.Scripts.Player
                 }
 
                 var checkpoint = checkpoints.Last().transform.position;
-                Analytics.CustomEvent("checkpoint_restart_key", new Dictionary<string, object>
-                {
-                    {"position", transform.position},
-                    {"light_intensity", _light.LightIntensity},
-                    {"max_light_intensity", _light.maximumIntensity},
-                    {"time_elapsed", Time.timeSinceLevelLoad},
-                    {"number_of_checkpoints", checkpoints.Count},
-                    {"last_checkpoint", checkpoint},
-                });
+                GameAnalytics.Instance.CheckpointRestart(checkpoints, checkpoint);
 
                 var fadeInOut = GameObject.Find("FadeInOut").GetComponent<FadeInOut>();
                 fadeInOut.FadeOut(() =>
@@ -78,6 +70,7 @@ namespace Game.Scripts.Player
 
             checkpoints.Add(checkpoint);
 
+            // Permanently charge the charger itself, as to mark the checkpoint
             var light = checkpoint.transform.Find("Light").GetComponent<LightScript>();
             light.ChargeLight(light.maximumIntensity);
             light.lightDec = 0;

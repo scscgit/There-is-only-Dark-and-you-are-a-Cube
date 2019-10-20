@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
@@ -51,7 +52,7 @@ namespace Game.Scripts.UI
 
         public void StartGame()
         {
-            AnalyticsEvent.GameStart();
+            AnalyticsEvent.GameStart(new Dictionary<string, object> {{"time_elapsed", Time.timeSinceLevelLoad}});
             try
             {
                 SceneManager.LoadScene("Game/Scenes/SampleScene");

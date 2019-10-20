@@ -4963,10 +4963,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: maximumIntensity
-      value: 0.05
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}

@@ -24,7 +24,7 @@ namespace Game.Scripts.Player
         private void Start()
         {
             Analytics.FlushEvents();
-            AnalyticsEvent.LevelStart(SceneManager.GetActiveScene().name);
+            GameAnalytics.Instance.LevelStart();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -41,17 +41,11 @@ namespace Game.Scripts.Player
                     var checkpoint = other.gameObject.transform.parent.gameObject;
                     var alreadySaved = checkpointManager.AddCheckpoint(checkpoint);
 
-                    Analytics.CustomEvent("use_charger", new Dictionary<string, object>
-                    {
-                        {"already_saved", alreadySaved},
-                        {"position", transform.position},
-                        {"light_intensity", _light.LightIntensity},
-                        {"max_light_intensity", _light.maximumIntensity},
-                        {"time_elapsed", Time.timeSinceLevelLoad},
-                        {"number_of_checkpoints", checkpointManager.checkpoints.Count},
-                        {"last_checkpoint", checkpointManager.checkpoints.Last().transform.position},
-                        {"this_checkpoint", checkpoint.transform.position},
-                    });
+                    GameAnalytics.Instance.UseCharger(
+                        alreadySaved,
+                        checkpointManager.checkpoints,
+                        checkpoint.transform.position
+                    );
 
                     _zooming = true;
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
@@ -87,6 +81,10 @@ namespace Game.Scripts.Player
                             );
                         });
                     break;
+
+                case "AboveTurret":
+                    Achievements.Instance.Gain(Achievements.Achievement.WalkOnFirstTurret);
+                    break;
             }
         }
 
@@ -111,37 +109,21 @@ namespace Game.Scripts.Player
             switch (col.gameObject.tag)
             {
                 case "Battery":
-                    Analytics.CustomEvent("upgrade_battery", new Dictionary<string, object>
-                    {
-                        {"position", transform.position},
-                        {"light_intensity", _light.LightIntensity},
-                        {"max_light_intensity", _light.maximumIntensity},
-                        {"time_elapsed", Time.timeSinceLevelLoad},
-                    });
+                    GameAnalytics.Instance.UpgradeBattery();
+                    Achievements.Instance.Gain(Achievements.Achievement.FirstBattery);
                     _light.UpgradeBattery();
                     col.gameObject.DeleteSafely();
                     break;
                 case "Key":
                     GetComponent<Inventory>().AddDoorKey();
-                    Analytics.CustomEvent("collect_key", new Dictionary<string, object>
-                    {
-                        {"position", transform.position},
-                        {"light_intensity", _light.LightIntensity},
-                        {"max_light_intensity", _light.maximumIntensity},
-                        {"time_elapsed", Time.timeSinceLevelLoad},
-                    });
+                    GameAnalytics.Instance.CollectKey();
                     col.gameObject.DeleteSafely();
                     break;
                 case "Enemy":
                     if (_light.LightIntensity > 0)
                     {
-                        Analytics.CustomEvent("hit_by_enemy", new Dictionary<string, object>
-                        {
-                            {"position", transform.position},
-                            {"light_intensity", _light.LightIntensity},
-                            {"max_light_intensity", _light.maximumIntensity},
-                            {"time_elapsed", Time.timeSinceLevelLoad},
-                        });
+                        Achievements.Instance.GetHit();
+                        GameAnalytics.Instance.HitByEnemy();
                     }
 
                     _light.DoDamage(10f);
@@ -153,15 +135,9 @@ namespace Game.Scripts.Player
                 case "Bullet(Clone)":
                     if (col.gameObject.GetComponent<Bullet>().TryFirstHit())
                     {
+                        Achievements.Instance.GetHit();
                         var velocityMagnitude = col.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
-                        Analytics.CustomEvent("hit_by_bullet", new Dictionary<string, object>
-                        {
-                            {"position", transform.position},
-                            {"light_intensity", _light.LightIntensity},
-                            {"max_light_intensity", _light.maximumIntensity},
-                            {"bullet_velocity_magnitude", velocityMagnitude},
-                            {"time_elapsed", Time.timeSinceLevelLoad},
-                        });
+                        GameAnalytics.Instance.HitByBullet(velocityMagnitude);
                         _light.DoDamage(velocityMagnitude);
                     }
 
@@ -169,13 +145,7 @@ namespace Game.Scripts.Player
                 case "KeyEntrance":
                     if (GetComponent<Inventory>().UseDoorKey())
                     {
-                        Analytics.CustomEvent("used_key_on_door", new Dictionary<string, object>
-                        {
-                            {"position", transform.position},
-                            {"light_intensity", _light.LightIntensity},
-                            {"max_light_intensity", _light.maximumIntensity},
-                            {"time_elapsed", Time.timeSinceLevelLoad},
-                        });
+                        GameAnalytics.Instance.UsedKeyOnDoor();
                         col.gameObject.DeleteSafely();
                     }
 
@@ -186,14 +156,8 @@ namespace Game.Scripts.Player
                         return;
                     }
 
-                    AnalyticsEvent.GameOver(SceneManager.GetActiveScene().name, new Dictionary<string, object>
-                    {
-                        {"position", transform.position},
-                        {"light_intensity", _light.LightIntensity},
-                        {"max_light_intensity", _light.maximumIntensity},
-                        {"time_elapsed", Time.timeSinceLevelLoad},
-                        {"keys_remaining", GetComponent<Inventory>().keyList.Count}
-                    });
+                    var receivedHit = Achievements.Instance.Win();
+                    GameAnalytics.Instance.GameOver(GetComponent<Inventory>().keyList);
                     Analytics.FlushEvents();
 
                     _gameWon = true;
@@ -212,7 +176,7 @@ namespace Game.Scripts.Player
                                 .FadeOut(() =>
                                 {
                                     // Game over
-                                    HUD.Instance.SetActiveGameWon(true);
+                                    HUD.Instance.SetGameWon(receivedHit);
                                 });
                         },
                         true

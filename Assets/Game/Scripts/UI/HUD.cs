@@ -13,9 +13,11 @@ namespace Game.Scripts.UI
             transform.Find("CheckpointGained").gameObject.SetActive(active);
         }
 
-        public void SetActiveGameWon(bool active)
+        public void SetGameWon(bool receivedHit)
         {
-            transform.Find("GameWon").gameObject.SetActive(active);
+            transform.Find("GameWon").gameObject.SetActive(true);
+            transform.Find("GameWon/Image/SimpleWinText").gameObject.SetActive(receivedHit);
+            transform.Find("GameWon/Image/NoHitWinText").gameObject.SetActive(!receivedHit);
         }
     }
 }
