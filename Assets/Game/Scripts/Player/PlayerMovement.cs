@@ -50,6 +50,10 @@ namespace Game.Scripts.Player
             _movement.x = CrossPlatformInputManager.GetAxisRaw("Horizontal");
             _movement.z = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
+            // Make the newly spawned particles follow the player - but not the old ones, unlike PositionConstraint!
+            var shape = _movementParticles.shape;
+            shape.position = transform.position;
+
             // Enable or disable particle emission based on input
             var particleEmission = _movementParticles.emission;
             particleEmission.enabled = _movement.x != 0 || _movement.z != 0;
