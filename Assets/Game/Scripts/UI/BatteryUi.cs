@@ -141,7 +141,10 @@ namespace Game.Scripts.UI
             else
             {
                 StoreBatteryCharge(_playerLight.LightIntensity);
-                _disabledBattery.gameObject.SetActive(true);
+                if (_savedBattery > 0)
+                {
+                    _disabledBattery.gameObject.SetActive(true);
+                }
             }
         }
 

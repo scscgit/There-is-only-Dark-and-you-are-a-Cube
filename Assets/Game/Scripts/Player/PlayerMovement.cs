@@ -52,7 +52,7 @@ namespace Game.Scripts.Player
 
             // Enable or disable particle emission based on input
             var particleEmission = _movementParticles.emission;
-            particleEmission.enabled = _movement.x != 0 ^ _movement.z != 0;
+            particleEmission.enabled = _movement.x != 0 || _movement.z != 0;
 
             if (Input.GetKey(KeyCode.C))
             {
