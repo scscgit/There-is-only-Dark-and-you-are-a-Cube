@@ -148,6 +148,10 @@ namespace Game.Scripts.Player
                         GameAnalytics.Instance.UsedKeyOnDoor();
                         col.gameObject.DeleteSafely();
                     }
+                    else
+                    {
+                        KeyUi.Instance.ShowRequiredKey();
+                    }
 
                     break;
                 case "WinEntrance":
@@ -165,7 +169,7 @@ namespace Game.Scripts.Player
 
                     var offset = new Vector3(0, 1, -2);
                     var followPlayer = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
-                    followPlayer.zoomSpeed = 0.005f;
+                    followPlayer.zoomSpeed = 0.008f;
                     followPlayer.ZoomIn(
                         p => 0,
                         offset,

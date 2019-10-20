@@ -1,5 +1,5 @@
-﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Player
@@ -18,6 +18,7 @@ namespace Game.Scripts.Player
             if (HasDoorKey())
             {
                 keyList.RemoveAt(0);
+                KeyUi.Instance.UpdateKeys(keyList);
                 return true;
             }
 
@@ -27,6 +28,7 @@ namespace Game.Scripts.Player
         public void AddDoorKey()
         {
             keyList.Add(new DoorKey());
+            KeyUi.Instance.UpdateKeys(keyList);
         }
     }
 }
