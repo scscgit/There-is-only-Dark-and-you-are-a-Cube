@@ -44,11 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3f1a325aab6fa4ea3de64af5ddeb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startIntensity: 0
   maximumIntensity: 5
+  intensityOfUpgrade: 5
   lightDec: 0.005
   breathingIntensity: 0.2
   breathingIntervalSec: 5
   batteryUi: {fileID: 0}
+  controlEmissionsOf: []
 --- !u!108 &666168146425503798
 Light:
   m_ObjectHideFlags: 0
@@ -66,7 +69,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -94,7 +97,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -102,7 +105,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
