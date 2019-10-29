@@ -19,5 +19,22 @@ namespace Game.Scripts.UI
             transform.Find("GameWon/Image/SimpleWinText").gameObject.SetActive(receivedHit);
             transform.Find("GameWon/Image/NoHitWinText").gameObject.SetActive(!receivedHit);
         }
+
+        private void OnGUI()
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                MainMenu.QualitySettingsGui();
+            }
+
+            // Debugging command to switch Camera Rendering Path
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.N))
+            {
+                var cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+                cam.renderingPath = cam.renderingPath == RenderingPath.DeferredShading
+                    ? RenderingPath.Forward
+                    : RenderingPath.DeferredShading;
+            }
+        }
     }
 }

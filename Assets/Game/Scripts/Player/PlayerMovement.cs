@@ -82,14 +82,6 @@ namespace Game.Scripts.Player
             }
         }
 
-        private void OnGUI()
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                MainMenu.QualitySettingsGui();
-            }
-        }
-
         void FixedUpdate()
         {
             if (unrestrictedMovement)
