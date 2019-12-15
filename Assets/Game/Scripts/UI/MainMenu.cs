@@ -8,6 +8,11 @@ namespace Game.Scripts.UI
 {
     public class MainMenu : MonoBehaviour
     {
+        private void Awake()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+
         private void OnGUI()
         {
             QualitySettingsGui();

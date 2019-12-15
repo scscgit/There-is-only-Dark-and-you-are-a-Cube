@@ -13,7 +13,7 @@ namespace Game.Scripts
     {
         private static GameAnalytics _instance;
 
-        public static GameAnalytics Instance => _instance ?? (_instance = new GameAnalytics());
+        public static GameAnalytics Instance => _instance == null ? _instance = new GameAnalytics() : _instance;
 
         private PlayerMovement _player;
         private LightScript _light;
@@ -22,6 +22,12 @@ namespace Game.Scripts
         {
             _player = GameObject.Find("Player").GetComponent<PlayerMovement>() ?? throw new Exception();
             _light = _player.transform.Find("Light").GetComponent<LightScript>() ?? throw new Exception();
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        private static void Init()
+        {
+            _instance = null;
         }
 
         private void Event(

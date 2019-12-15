@@ -4,7 +4,7 @@
  * Project:         Graphy - Ultimate Stats Monitor
  * Date:            15-Dec-17
  * Studio:          Tayx
- * 
+ *
  * This project is released under the MIT license.
  * Attribution is not required, but it is always welcomed!
  * -------------------------------------*/
@@ -61,9 +61,9 @@ namespace Tayx.Graphy.Fps
         }
 
         #endregion
-        
+
         #region Methods -> Public
-        
+
         public void UpdateParameters()
         {
             if (m_shaderGraph == null)
@@ -88,10 +88,10 @@ namespace Tayx.Graphy.Fps
             m_shaderGraph.InitializeShader();
 
             m_resolution = m_graphyManager.FpsGraphResolution;
-            
+
             CreatePoints();
         }
-        
+
         #endregion
 
         #region Methods -> Protected Override
@@ -145,19 +145,20 @@ namespace Tayx.Graphy.Fps
         {
             m_shaderGraph.Array = new float[m_resolution];
 
-            m_fpsArray = new int[m_resolution];
+            if(m_fpsArray == null)
+                m_fpsArray = new int[m_resolution];
 
             for (int i = 0; i < m_resolution; i++)
             {
-                m_shaderGraph.Array[i] = 0;
+                //m_shaderGraph.Array[i] = 0;
             }
 
             m_shaderGraph.GoodColor     = m_graphyManager.GoodFPSColor;
             m_shaderGraph.CautionColor  = m_graphyManager.CautionFPSColor;
             m_shaderGraph.CriticalColor = m_graphyManager.CriticalFPSColor;
-            
+
             m_shaderGraph.UpdateColors();
-            
+
             m_shaderGraph.UpdateArray();
         }
 

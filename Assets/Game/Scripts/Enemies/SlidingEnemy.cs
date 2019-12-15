@@ -26,6 +26,10 @@ namespace Game.Scripts.Enemies
         private readonly Vector3 RightRayStart = new Vector3(0.35f, 0, 0.35f);
         private static readonly int Sliding = Animator.StringToHash("sliding");
 
+        // Physics movement
+        private Quaternion? _moveRotation;
+        private Vector3 _moveVelocity;
+
         private void OnDrawGizmos()
         {
             // Beam to the sky if there isn't any Player
@@ -47,7 +51,7 @@ namespace Game.Scripts.Enemies
             _startingPosition = transform.position;
         }
 
-        void FixedUpdate()
+        void Update()
         {
             if (!alive)
             {
@@ -87,10 +91,30 @@ namespace Game.Scripts.Enemies
 
                 // Go back to spawn
                 var distanceToStart = _startingPosition - transform.position;
-                if (distanceToStart.magnitude > 1)
+                if (distanceToStart.magnitude > 0.1)
                 {
                     StepTowards(distanceToStart);
                 }
+                // Don't go anywhere
+                else
+                {
+                    _moveVelocity = Vector3.zero;
+                }
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_moveRotation.HasValue)
+            {
+                _rigidbody.MoveRotation(_moveRotation.Value);
+                _moveRotation = null;
+            }
+
+            // Only move if there's no vertical rebound (this is a hotfix, the Y position is overridden anyway)
+            if (Mathf.Abs(_rigidbody.velocity.y) < 0.01)
+            {
+                _rigidbody.velocity = _moveVelocity;
             }
         }
 
@@ -103,8 +127,8 @@ namespace Game.Scripts.Enemies
             );
             var moveRotation = transform.rotation.eulerAngles;
             moveRotation.y = slerp.eulerAngles.y;
-            _rigidbody.MoveRotation(Quaternion.Euler(moveRotation));
-            _rigidbody.velocity = distanceToTarget.normalized * speed;
+            _moveRotation = Quaternion.Euler(moveRotation);
+            _moveVelocity = distanceToTarget.normalized * speed;
         }
 
         bool PlayerProximity(Vector3 distanceToPlayer)
@@ -151,11 +175,6 @@ namespace Game.Scripts.Enemies
 
         void OnCollisionEnter(Collision col)
         {
-            if (!col.gameObject.activeSelf)
-            {
-                return;
-            }
-
             switch (col.gameObject.name)
             {
                 case "Bullet(Clone)":
@@ -165,7 +184,19 @@ namespace Game.Scripts.Enemies
                     {
                         Achievements.Instance.Gain(Achievements.Achievement.TurretHitSlidingEnemy);
                         _animator.enabled = false;
+                        alive = false;
                     }
+
+                    // Include bullet as a rebound
+                    goto case "Player";
+
+                // Rebound
+                case "Player":
+                case "SlidingEnemy":
+                    _rigidbody.velocity =
+                        Vector3.Reflect(_rigidbody.velocity.normalized * 5f, col.contacts[0].normal)
+                        // Vertical velocity only acts as a timer
+                        + Vector3.up * 0.5f;
 
                     break;
             }

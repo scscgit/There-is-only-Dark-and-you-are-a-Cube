@@ -4908,6 +4908,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light
       objectReference: {fileID: 0}
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1770238994466087772, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: m_LocalPosition.x
