@@ -105,6 +105,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4848,10 +4849,11 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4903,14 +4905,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4455500506432503268}
     m_Modifications:
-    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
-      propertyPath: m_Name
-      value: Light
+      propertyPath: m_Intensity
+      value: 0.7
       objectReference: {fileID: 0}
-    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
-      propertyPath: m_StaticEditorFlags
+      propertyPath: m_BounceIntensity
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1770238994466087772, guid: e5bf8aa85b0e7a544980b190de480f42,
@@ -4968,16 +4970,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 666168146425503798, guid: e5bf8aa85b0e7a544980b190de480f42,
-        type: 3}
-      propertyPath: m_BounceIntensity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5839777274821827532, guid: e5bf8aa85b0e7a544980b190de480f42,
         type: 3}
       propertyPath: maximumIntensity
@@ -4992,6 +4984,16 @@ PrefabInstance:
         type: 3}
       propertyPath: breathingIntervalSec
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548631072983883546, guid: e5bf8aa85b0e7a544980b190de480f42,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bf8aa85b0e7a544980b190de480f42, type: 3}
